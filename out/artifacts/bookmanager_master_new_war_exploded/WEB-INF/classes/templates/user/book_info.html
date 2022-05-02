@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Manage System </title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+        li {
+            margin: 10px 20px;
+        }
+        th {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/user/book/getAll}">Book List </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/user/record/getOwnRecord}">Borrow Manage</a>
+        </li>
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               th:text="${session.name}+', Hello'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person Information</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <table class="table">
+        <tr>
+            <th>Description</th>
+            <td th:text="${books[0].getDescription()}"></td>
+        </tr>
+        <tr>
+            <th>category</th>
+            <td th:text="${books[0].getCategory()}"></td>
+        </tr>
+        <tr>
+            <th>publish-time</th>
+            <td th:text="${books[0].getPublishTime()}"></td>
+        </tr>
+    </table>
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>BookId</th>
+            <th>floor</th>
+            <th>face</th>
+            <th>row</th>
+            <th>column</th>
+            <th>state</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="book: ${books}">
+            <!--/*@thymesVar id="getBook_name" type="com.xkx.bookmanager.pojo.Book"*/-->
+            <td th:text="${book.getBookId()}"></td>
+            <td th:text="${book.getFloor()}"></td>
+            <td th:text="${book.getFace()}"></td>
+            <td th:text="${book.getRow()}"></td>
+            <td th:text="${book.getColumn()}"></td>
+            <div th:switch="${book.getState()}">
+                <td th:case="1">available</td>
+                <td th:case="0">unavailable</td>
+            </div>
+            <td><a th:if="${book.getState()}" th:href="@{'/user/book/borrow/' + ${book.getBookId()}}" class="btn btn-outline-info">Borrow</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/user/book/getAll}" class="btn btn-outline-primary btn-lg">Return</a>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

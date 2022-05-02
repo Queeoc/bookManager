@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Manage System </title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    nav {
+      font-size: 1.5rem;
+      background-color: #21D4FD;
+      background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+      background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+      background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+      background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: white;
+    }
+
+    li {
+      margin: 10px 20px;
+    }
+
+    #searchBox {
+      width: 300px;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav">
+    <li>
+      <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/user/book/getAll}">Book List</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" th:href="@{/user/record/getOwnRecord}">Borrow Record</a>
+    </li>
+  </ul>
+  <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+    <div class="dropdown">
+      <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+         aria-expanded="false"
+         th:text="${session.name}+', Hello'">
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person
+          Information</a>
+        <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+        <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div>
+  this is pay page
+  <form action="/toPay" method="post">
+    订单号：<input type="text" name="orderid" required><br/>
+    订单名称：<input type="text" name="title" required><br/>
+    付款金额：<input type="text" name="price" required><br/>
+    <input type="submit" value="下单"> <input type="reset" value="重置">
+  </form>
+</div>
+
+<script>
+
+</script>
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

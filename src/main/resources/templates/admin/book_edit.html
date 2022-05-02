@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Manage System </title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+        li {
+            margin: 10px 20px;
+        }
+        th {
+            width: 100px;
+        }
+        label {
+            margin: auto;
+            padding-right: 20px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/admin/book/getAll}">Book Manage </a>
+        </li>
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" th:href="@{/admin/reader/getAll}">Reader Manage </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" th:href="@{/admin/record/getAll}">Borrow Manage</a>-->
+<!--        </li>-->
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               th:text="${session.name}+', Hello'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person Information</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <form th:action="@{/admin/book/update}" method="post">
+        <input type="text" hidden name="bookId" th:value="${book.getBookId()}">
+        <div class="input-group">
+            <label for="floor">floor</label>
+            <input type="text" class="form-control" id="floor" name="floor" th:value="${book.getFloor()}">
+        </div>
+        <div class="input-group">
+            <label for="face">face</label>
+            <input type="text" class="form-control" id="face" name="face" th:value="${book.getFace()}">
+        </div>
+        <div class="input-group">
+            <label for="row">row</label>
+            <input type="text" class="form-control" id="row" name="row" th:value="${book.getRow()}">
+        </div>
+        <div class="input-group">
+            <label for="column">column</label>
+            <input type="text" class="form-control" id="column" name="column" th:value="${book.getColumn()}">
+        </div>
+<!--        <div class="input-group">-->
+<!--            <label for="introduction">简介</label>-->
+<!--            <textarea class="form-control" id="introduction" name="introduction" th:text="${book.getIntroduction()}"></textarea>-->
+<!--        </div>-->
+<!--        <div class="input-group">-->
+<!--            <label for="language">语言</label>-->
+<!--            <input type="text" class="form-control" id="language" name="language" th:value="${book.getLanguage()}">-->
+<!--        </div>-->
+<!--        <div class="input-group">-->
+<!--            <label for="price">价格</label>-->
+<!--            <input type="text" class="form-control" id="price" name="price" th:value="${book.getPrice()}">-->
+<!--        </div>-->
+<!--        <div class="input-group">-->
+<!--            <label for="pubdate">出版日期</label>-->
+<!--            <input type="text" class="form-control" id="pubdate" name="pubdate" th:value="${#dates.format(book.getPubdate(),'yyyy-MM-dd')}">-->
+<!--        </div>-->
+<!--        <div class="input-group">-->
+<!--            <label for="classId">分类号</label>-->
+<!--            <input type="text" class="form-control" id="classId" name="classId" th:value="${book.getClassId()}">-->
+<!--        </div>-->
+<!--        <div class="input-group">-->
+<!--            <label for="pressmark">书架号</label>-->
+<!--            <input type="text" class="form-control" id="pressmark" name="pressmark" th:value="${book.getPressmark()}">-->
+<!--        </div>-->
+<!--        <div class="input-group">-->
+<!--            <label for="state">状态</label>-->
+<!--            <input type="text" class="form-control" id="state" name="state" th:value="${book.getState()}">-->
+<!--        </div>-->
+        <input type="submit" value="Submit" class="btn btn-outline-primary btn-lg">
+        <a th:href="@{/admin/book/getAll}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">Cancel</a>
+    </form>
+
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Manage System </title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+
+        li {
+            margin: 10px 20px;
+        }
+
+        th {
+            width: 100px;
+        }
+
+        label {
+            margin: auto;
+            padding-right: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/admin/book/getAll}">Book Manage </a>
+        </li>
+        <!--        <li class="nav-item">-->
+        <!--            <a class="nav-link" th:href="@{/admin/reader/getAll}">Reader Manage </a>-->
+        <!--        </li>-->
+        <!--        <li class="nav-item">-->
+        <!--            <a class="nav-link" th:href="@{/admin/record/getAll}">Borrow Manage</a>-->
+        <!--        </li>-->
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false"
+               th:text="${session.name}+', Hello'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person
+                    Information</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <form th:action="@{/admin/book/add}" method="post" style="margin-top: 20px">
+        <div class="input-group">
+            <label for="bookName">bookName</label>
+            <input type="text" class="form-control" id="bookName" name="bookName">
+        </div>
+        <div class="input-group">
+            <label for="author">author</label>
+            <input type="text" class="form-control" id="author" name="author">
+        </div>
+        <div class="input-group">
+            <label for="publisher">publisher</label>
+            <input type="text" class="form-control" id="publisher" name="publisher">
+        </div>
+        <div class="input-group">
+            <label for="isbn">isbn</label>
+            <input type="text" class="form-control" id="isbn" name="isbn">
+        </div>
+        <div class="input-group">
+            <label for="description">description</label>
+            <textarea type="text" class="form-control" id="description" name="description"></textarea>
+        </div>
+        <div class="input-group">
+            <label for="category">category</label>
+            <input type="text" class="form-control" id="category" name="category">
+        </div>
+        <div class="input-group">
+            <label for="price">price</label>
+            <input type="text" class="form-control" id="price" name="price">
+        </div>
+        <div class="input-group">
+            <label for="publishTime">publishTime</label>
+            <input type="text" class="form-control" id="publishTime" name="publishTime">
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <label for="face">face</label>
+                    <!--                    <input type="text" class="form-control" id="classId" name="classId">-->
+                    <select class="custom-select" id="face" name="face">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="input-group">
+                    <label for="column">column</label>
+                    <!--            <input type="text" class="form-control" id="pressmark" name="pressmark">-->
+                    <select class="custom-select" id="column" name="column">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="input-group">
+                    <label for="row">row</label>
+                    <!--                    <input type="text" class="form-control" id="state" name="state">-->
+                    <select class="custom-select" id="row" name="row">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="input-group">
+                    <label for="floor">floor</label>
+                    <!--                    <input type="text" class="form-control" id="state" name="state">-->
+                    <select class="custom-select" id="floor" name="floor">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="state">state</label>
+            <input type="text" class="form-control" id="state" name="state">
+        </div>
+
+        <div class="input-group">
+            <label for="number">number</label>
+            <input type="text" class="form-control" id="number" name="number">
+        </div>
+
+        <input type="submit" value="Submit" class="btn btn-outline-primary btn-lg">
+        <a th:href="@{/admin/book/getAll}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">Cancel</a>
+    </form>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

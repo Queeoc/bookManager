@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xkx.bookmanager.mapper.BookMapper">
+    <select id="getAllBook" resultType="Book">
+        select * from book_info group by isbn;
+    </select>
+
+
+
+    <select id="getBookByIsbn" resultType="Book">
+        select * from book_info where isbn = #{isbn}
+    </select>
+
+    <select id="getBookById" resultType="Book">
+        select * from book_info where BookId = #{bookId}
+    </select>
+
+<!--    <update id="updateBook" parameterType="Book">-->
+<!--        update book_info-->
+<!--        set bookName = #{bookName}, author = #{author}, publisher = #{publisher}, isbn= #{isbn},-->
+<!--            description = #{description}, category = #{category}, price = #{price}, row = #{row},-->
+<!--            publishTime = #{publishTime}, floor = #{floor}, face = #{face}, column = #{column},-->
+<!--            state = #{state}-->
+<!--        where bookId = #{bookId}-->
+<!--    </update>-->
+
+    <update id="updateBook" parameterType="Book">
+        update book_info
+        set  row = #{row}, floor = #{floor}, face = #{face}, `column` = #{column}
+            where bookId = #{bookId}
+    </update>
+
+    <update id="updateBookBasic" parameterType="Book">
+        update book_info
+        set bookName = #{bookName}, author = #{author}, publisher = #{publisher},
+            description = #{description}, category = #{category}, price = #{price},
+            publishTime = #{publishTime}
+
+        where isbn = #{isbn}
+    </update>
+
+    <delete id="deleteBook">
+        delete from book_info where bookId = #{bookId}
+    </delete>
+
+    <insert id="addBook" parameterType="Book">
+        insert into book_info values (null, #{isbn}, #{bookName}, #{author}, #{publisher}, #{publishTime},
+                                      #{floor}, #{state}, #{price}, #{category}, #{description}, #{face}, #{column}, #{row})
+    </insert>
+
+    <select id="searchBook" resultType="Book">
+        select * from book_info where bookName like '%${keyword}%' or
+        publisher like '%${keyword}%' or
+        author like '%${keyword}%'
+    </select>
+
+    <update id="borrowBookById" >
+        update book_info set state = 0 where bookId = #{bookId}
+    </update>
+
+    <update id="returnBookById" >
+        update book_info set state = 1 where bookId = #{bookId}
+    </update>
+</mapper>
