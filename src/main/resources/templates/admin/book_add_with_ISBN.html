@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>图书管理系统</title>
+    <title>Book Manage System</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         nav {
@@ -39,27 +39,27 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
     <ul class="navbar-nav">
         <li>
-            <h1><a th:href="@{/}" style="color: white; text-decoration: none">图书管理系统</a></h1>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System</a></h1>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" th:href="@{/admin/book/getAll}">图书管理</a>
+            <a class="nav-link active" th:href="@{/admin/book/getAll}">Book Manage</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/reader/getAll}">读者管理</a>
+            <a class="nav-link" th:href="@{/admin/reader/getAll}">Reader Manage</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/record/getAll}">借还管理</a>
+            <a class="nav-link" th:href="@{/admin/record/getAll}">Borrow Manage</a>
         </li>
     </ul>
     <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
         <div class="dropdown">
             <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-               th:text="${session.name}+', 您好'">
+               th:text="${session.name}+', Hello'">
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">个人信息</a>
-                <a class="dropdown-item" th:href="@{/toChPwdPage}">修改密码</a>
-                <a class="dropdown-item" th:href="@{/logout}">注销</a>
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Personal Information</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>
         </div>
     </div>
@@ -166,8 +166,8 @@
             <input type="text" class="form-control" id="number" name="number">
         </div>
 
-        <input type="submit" value="提    交" class="btn btn-outline-primary btn-lg">
-        <a th:href="@{/admin/book/getAll}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">取&nbsp;&nbsp;&nbsp;&nbsp;消</a>
+        <input type="submit" value="Submit" class="btn btn-outline-primary btn-lg">
+        <a th:href="@{/admin/book/getAll}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">Cancle</a>
     </form>
 </div>
 

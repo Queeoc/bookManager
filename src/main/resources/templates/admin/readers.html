@@ -82,9 +82,9 @@
             <td th:text="${#dates.format(reader.getRegisterTime(),'yyyy-MM-dd')}"></td>
             <td th:text="${reader.getAddress()}"></td>
             <td th:text="${reader.getPhoneNumber()}"></td>
-            <td th:text="${reader.getBarcode()}"></td>
-            <td><a href="#" class="btn btn-outline-danger">挂失</a></td>
-            <td><a href="#" class="btn btn-outline-dark">停借</a></td>
+            <td>
+                <img th:src="@{${reader.getBarcode}}" >
+            </td>
         </tr>
         </tbody>
     </table>
