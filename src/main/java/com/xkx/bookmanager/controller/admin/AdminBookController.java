@@ -4,17 +4,19 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.xkx.bookmanager.mapper.BookMapper;
 import com.xkx.bookmanager.pojo.Book;
+import com.xkx.bookmanager.util.barCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.swing.*;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/book")
@@ -28,7 +30,6 @@ public class AdminBookController {
         List<Book> books = bookMapper.getAllBook();
         model.addAttribute("books", books);
 
-        System.out.println(books.get(0));
         return "admin/books";
     }
 
@@ -78,10 +79,12 @@ public class AdminBookController {
     @RequestMapping("/getByISBN")
     public String getByISBN(Model model,String ISBN_num){
         Book book=new Book();
-        String Publish_time,Publishing,Name,Author,Price,Description;
+        String Publishing,Name,Author,Price,Description;
+
+        String Publish_time;
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
         try {
-            String result = HttpRequest.get("https://api.jike.xyz/situ/book/isbn/"+ISBN_num+"?apikey=12458.27f8ef2c1fdf5d0a0ebb19642b3ec9c7.a13bf079099ad1c733d1b598caf82f91").body();
+            String result = HttpRequest.get("https://api.jike.xyz/situ/book/isbn/"+ISBN_num+"?apikey=12573.1b848ff5b812e81c6dbce3537e987b54.03e707fe58717f5941a88adec803e40a").body();
             //String result = HttpRequest.get("https://www.baidu.com").body();
 
             //将返回字符串转换为JSON对象
@@ -96,6 +99,22 @@ public class AdminBookController {
             Description = (String) json.getJSONObject("data").get("description");
             Price = (String) json.getJSONObject("data").get("price");
 
+            //统一日期格式
+            if(Publish_time.length() < 7 && Publish_time.indexOf(5) != '0'){
+                Publish_time = new StringBuilder(Publish_time).insert(5,'0').toString();
+            }
+
+            if(Publish_time.length() == 7){
+                Publish_time = Publish_time + "-01";
+            }
+            if(Publish_time.length() <10){
+                Publish_time = new StringBuilder(Publish_time).insert(8,'0').toString();
+            }
+            if(Publish_time.length() >10){
+                Publish_time = Publish_time.substring(0,10);
+            }
+
+//            Date parse = sf.parse(Publish_time);
 
 
             book.setBookName(Name);
@@ -106,12 +125,12 @@ public class AdminBookController {
             book.setPublisher(Publishing);
             book.setPrice(Price);
 
+
             model.addAttribute("book",book);
 
             return "admin/book_add_with_ISBN";
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "网络连接失败 或 未找到");
             return "redirect:/admin/book/getAll";
         }
 
@@ -119,13 +138,44 @@ public class AdminBookController {
 
 
     @RequestMapping("/add")
-    public String add(Book book, @ModelAttribute(value="number") String number) {
+    public String add(Model model , Book book, @ModelAttribute(value="number") String number) throws ParseException {
         int n=Integer.parseInt(number);
+
+//        Random random = new Random(10);
+//        int j = random.nextInt(10);
+//        int k = random.nextInt(10);
+//        int l = random.nextInt(10);
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
         for (int i=0;i<n;i++) {
             book.setState(1);
+
+//            System.out.println("success!!");
             bookMapper.addBook(book);
+
+//            System.out.println("success!!!!!!!!!!!!!!");
         }
-        return "redirect:/admin/book/getAll";
+        for (Book book1 : bookMapper.getBookByIsbn(book.getIsbn())) {
+            book1.setBookBarcode("/"+book1.getBookId()+".jpg");
+            bookMapper.updateBookBarcodeByIsbn(book1);
+
+        }
+        List<Book> books = bookMapper.getBookByIsbn(book.getIsbn());
+        Collections.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                if(Integer.parseInt(o1.getBookId()) < Integer.parseInt(o2.getBookId()))
+                return -1;
+
+                return 0;
+            }
+        });
+        List<Book> booksSub = new ArrayList<>();
+        for (int i = 0; i <n; i++) {
+            booksSub.add(books.get(i));
+        }
+
+        model.addAttribute("books",booksSub);
+        return "admin/book_add_success";
     }
 
     @RequestMapping("/search")

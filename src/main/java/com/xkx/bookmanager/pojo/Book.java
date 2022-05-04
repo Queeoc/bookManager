@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 
 
 @Data
@@ -20,12 +21,17 @@ public class Book {
     private String category;
     private String price;
 
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private Date publishTime;
+
     private String publishTime;
     private int state;
     private String face;
     private String column;
     private String row;
     private String floor;
+    private String bookBarcode;
+    private String picture;
 
 
 
