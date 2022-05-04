@@ -21,6 +21,6 @@
     </update>
 
     <insert id="addReader" parameterType="Reader">
-        insert into reader_info values (null,#{readerId},#{name},#{gender},#{registerTime},#{address},#{phoneNumber})
+        insert into reader_info values (#{barcode},#{readerId},#{address},#{gender},#{registerTime},#{name},#{phoneNumber})
     </insert>
 </mapper>

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 
@@ -17,5 +18,14 @@ public class Record {
     private Date borrowDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date returnDate;
+    private int fine;
+
+    public Record(String id, String username, Date nowtime, Date returntime) {
+        this.bookId=id;
+        this.readerId=username;
+        this.borrowDate=nowtime;
+        this.returnDate=returntime;
+    }
+
 
 }

@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Reader {
 
-	private byte[] barcode;
+	private String barcode;
     private String readerId;
     private String address;
     private String gender;

@@ -27,8 +27,10 @@
             width: 100px;
         }
         label {
-            margin: auto;
-            padding-right: 20px;
+            margin:0 auto;
+            width: 100px;
+            text-align: center;
+
         }
         .input-group {
             margin-bottom: 10px;
@@ -66,27 +68,27 @@
     <form th:action="@{/user/info/update}" method="post" style="margin-top: 40px">
         <div class="input-group">
             <label for="readerId">readerId</label>
-            <input type="text" class="form-control" id="readerId" name="readerId" th:value="${info.getReaderId()}" readonly>
+            <input type="text" class="form-control" id="readerId" name="readerId" th:value="${info.getReaderId()}" readonly style="margin-left: 20px" >
         </div>
         <div class="input-group">
             <label for="name">name</label>
-            <input type="text" class="form-control" id="name" name="name" th:value="${info.getName()}">
+            <input type="text" class="form-control" id="name" name="name" th:value="${info.getName()}" style="margin-left: 20px">
         </div>
         <div class="input-group">
             <label for="gender">gender</label>
-            <input type="text" class="form-control" id="gender" name="gender" th:value="${info.getGender()}">
+            <input type="text" class="form-control" id="gender" name="gender" th:value="${info.getGender()}" style="margin-left: 20px">
         </div>
         <div class="input-group">
             <label for="address">address</label>
-            <input type="text" class="form-control" id="address" name="address" th:value="${info.getAddress()}">
+            <input type="text" class="form-control" id="address" name="address" th:value="${info.getAddress()}" style="margin-left: 20px">
         </div>
         <div class="input-group">
             <label for="phoneNumber">phoneNumber</label>
-            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:value="${info.getPhoneNumber()}">
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:value="${info.getPhoneNumber()}" style="margin-left: 20px">
         </div>
-        <div class="input-group">
+        <div >
             <label >barcode</label>
-            <img th:src="@{${info.getBarcode()}}">
+            <img th:src="@{${info.getBarcode()}}" style="margin-left: 20px">
 
         </div>
         <input type="submit" value="Modify" class="btn btn-outline-primary btn-lg" style="margin-top: 20px">

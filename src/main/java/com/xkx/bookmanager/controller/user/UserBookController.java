@@ -66,6 +66,6 @@ public class UserBookController {
         recordMapper.insertRecord(r);
         List<Book> books = bookMapper.getAllBook();
         model.addAttribute("books",books);
-        return "user/books";
+        return "redirect:/user/book/getAll";
     }
 }

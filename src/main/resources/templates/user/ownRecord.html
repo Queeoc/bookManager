@@ -30,6 +30,7 @@
             width: 300px;
             float: right;
         }
+
     </style>
 </head>
 <body>
@@ -62,22 +63,26 @@
 </nav>
 
 <!--模态框-->
-<div class="modal fade" id="fineModel" data-show="true" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-     tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-            </div>
-            <div class="modal-body">
-                <div>you need to pay [[${fine}]] yuan</div>
-            </div>
-            <div class="modal-footer">
-                <a class="nav-link" th:href="@{/toPayPage}">To Pay</a>
-                <!--                <button type="button" class="btn btn-primary">Understood</button>-->
-            </div>
-        </div>
-    </div>
+<!--<div class="modal fade" id="fineModel" data-show="true" aria-labelledby="staticBackdropLabel" aria-hidden="true"-->
+<!--     tabindex="-1">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div>you need to pay [[${fine}]] yuan</div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                &lt;!&ndash;                <a class="nav-link" th:href="@{/toPayPage}">To Pay</a>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <button type="button" class="btn btn-primary">Understood</button>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="alert alert-primary" role="alert">
+    you need to pay [[${fine}]] yuan
 </div>
 
 <div class="container" style="margin-top: 40px">
@@ -88,6 +93,7 @@
             <th>userId</th>
             <th>borrowDate</th>
             <th>LatestReturnDate</th>
+            <th>Fine</th>
             <th></th>
 
 
@@ -99,21 +105,28 @@
             <td th:text="${record.getReaderId()}"></td>
             <td th:text="${#dates.format(record.getBorrowDate(),'yyyy-MM-dd')}"></td>
             <td th:text="${#dates.format(record.getReturnDate(),'yyyy-MM-dd')}"></td>
-            <td><a th:href="@{'/user/record/returnBook/' + ${record.getBookId()}}" class="btn btn-outline-success">归还</a>
-<!--                <a th:href="@{'/user/book/info/' + ${record.getBookId()}}" class="btn btn-outline-success">交罚款</a>-->
-                <a th:href="@{'/user/record/renewBook/' + ${record.getBookId()}}" class="btn btn-outline-success">续借</a>
+            <td th:text="${record.getFine()}"></td>
+            <td>
+<!--                <a th:if="${record.getFine()}==0" th:href="@{'/user/record/returnBook/' + ${record.getBookId()}}"-->
+<!--                   class="btn btn-outline-success">Return</a>-->
+
+<!--                <a th:if="${record.getFine()}==0" th:href="@{'/user/record/renewBook/' + ${record.getBookId()}}"-->
+<!--                   class="btn btn-outline-success">Renew</a>-->
+                <a th:if="${record.getFine()}!=0"
+                   th:href="@{'/user/toPay/' + ${record.getBookId()}+'/'+ ${record.getFine()}}"
+                   class="btn btn-outline-warning">Pay the fine</a>
+
             </td>
         </tr>
         </tbody>
     </table>
 </div>
 
+
 <script>
     window.onload = function () {
         let f = [[${fine}]];
         console.log(f);
-        //if(f>0) // 欠债不让看
-            $('#fineModel').modal('show')
 
 
 
