@@ -96,6 +96,9 @@ public class AdminBookController {
             Price = (String) json.getJSONObject("data").get("price");
 
             //统一日期格式
+            if(Publish_time.length() == 0){
+                Publish_time = "1990-03-01";
+            }
             if(Publish_time.length() < 7 && Publish_time.indexOf(5) != '0'){
                 Publish_time = new StringBuilder(Publish_time).insert(5,'0').toString();
             }
@@ -109,6 +112,7 @@ public class AdminBookController {
             if(Publish_time.length() >10){
                 Publish_time = Publish_time.substring(0,10);
             }
+
 
 
 
