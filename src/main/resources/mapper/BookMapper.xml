@@ -46,8 +46,9 @@
     </delete>
 
     <insert id="addBook" parameterType="Book">
-        insert into book_info values (null, #{isbn}, #{bookName}, #{author}, #{publisher}, #{publishTime},
-                                      #{floor}, #{state}, #{price}, #{category}, #{description}, #{face}, #{column}, #{row})
+        insert into book_info(isbn,bookName,author,publisher,publishTime,`floor`,state,price,category,description,face,`column`,`row`)
+        values (#{isbn}, #{bookName}, #{author}, #{publisher}, STR_TO_DATE(#{publishTime},'%Y-%m-%d'),
+                #{floor}, #{state}, #{price}, #{category}, #{description}, #{face}, #{column}, #{row})
     </insert>
 
     <select id="searchBook" resultType="Book">
@@ -62,5 +63,8 @@
 
     <update id="returnBookById" >
         update book_info set state = 1 where bookId = #{bookId}
+    </update>
+    <update id="updateBookBarcodeByIsbn" parameterType="Book">
+        update book_info set bookBarcode = #{bookBarcode} where bookId = #{bookId}
     </update>
 </mapper>

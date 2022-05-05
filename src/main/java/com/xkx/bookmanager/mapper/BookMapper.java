@@ -19,4 +19,5 @@ public interface BookMapper {
     void borrowBookById(String bookId);
     List<Book> getBookByIsbn(String isbn);
     void returnBookById(String bookId);
+    void updateBookBarcodeByIsbn(Book book);
 }

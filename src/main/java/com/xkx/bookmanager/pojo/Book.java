@@ -26,6 +26,8 @@ public class Book {
     private String column;
     private String row;
     private String floor;
+    private String bookBarcode;
+    private String picture;
 
 
 

@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/book")
@@ -96,6 +95,21 @@ public class AdminBookController {
             Description = (String) json.getJSONObject("data").get("description");
             Price = (String) json.getJSONObject("data").get("price");
 
+            //统一日期格式
+            if(Publish_time.length() < 7 && Publish_time.indexOf(5) != '0'){
+                Publish_time = new StringBuilder(Publish_time).insert(5,'0').toString();
+            }
+
+            if(Publish_time.length() == 7){
+                Publish_time = Publish_time + "-01";
+            }
+            if(Publish_time.length() <10){
+                Publish_time = new StringBuilder(Publish_time).insert(8,'0').toString();
+            }
+            if(Publish_time.length() >10){
+                Publish_time = Publish_time.substring(0,10);
+            }
+
 
 
             book.setBookName(Name);
@@ -119,12 +133,34 @@ public class AdminBookController {
 
 
     @RequestMapping("/add")
-    public String add(Book book, @ModelAttribute(value="number") String number) {
+    public String add(Model model, Book book, @ModelAttribute(value="number") String number) {
         int n=Integer.parseInt(number);
         for (int i=0;i<n;i++) {
             book.setState(1);
             bookMapper.addBook(book);
         }
+        for (Book book1 : bookMapper.getBookByIsbn(book.getIsbn())) {
+            book1.setBookBarcode("/"+book1.getBookId()+".jpg");
+            bookMapper.updateBookBarcodeByIsbn(book1);
+
+        }
+        List<Book> books = bookMapper.getBookByIsbn(book.getIsbn());
+        Collections.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                if(Integer.parseInt(o1.getBookId()) < Integer.parseInt(o2.getBookId()))
+                    return -1;
+
+                return 0;
+            }
+        });
+        List<Book> booksSub = new ArrayList<>();
+        for (int i = 0; i <n; i++) {
+            booksSub.add(books.get(i));
+        }
+
+        model.addAttribute("books",booksSub);
+
         return "redirect:/admin/book/getAll";
     }
 
