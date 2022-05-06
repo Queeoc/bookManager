@@ -23,4 +23,5 @@
     <insert id="addReader" parameterType="Reader">
         insert into reader_info values (#{barcode},#{readerId},#{address},#{gender},#{registerTime},#{name},#{phoneNumber})
     </insert>
+
 </mapper>

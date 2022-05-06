@@ -19,4 +19,6 @@ public interface RecordMapper {
     Record getRecord(String bookId,String readerId);
     void deleteRecord(String bookId,String readerId);
 
+    void returnById(String bookId);
+
 }

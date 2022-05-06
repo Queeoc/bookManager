@@ -30,6 +30,9 @@
     <delete id="deleteRecord">
         delete from lend_list where bookId = #{bookId} and readerId=#{readerId}
     </delete>
+    <delete id="returnById" >
+        delete from lend_list where bookId = #{bookId}
+    </delete>
 
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.xkx.bookmanager.controller.admin;
 
+import com.xkx.bookmanager.mapper.BookMapper;
 import com.xkx.bookmanager.mapper.RecordMapper;
 import com.xkx.bookmanager.mapper.SystemMapper;
 import com.xkx.bookmanager.pojo.Record;
@@ -7,6 +8,7 @@ import com.xkx.bookmanager.pojo.System;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.SimpleDateFormat;
@@ -21,6 +23,8 @@ public class AdminRecordController {
     private RecordMapper recordMapper;
     @Autowired
     private SystemMapper systemMapper;
+    @Autowired
+    private BookMapper bookMapper;
 
     @RequestMapping("/getAll")
     public String getAll(Model model) {
@@ -41,5 +45,12 @@ public class AdminRecordController {
         model.addAttribute("records", records);
 
         return "admin/records";
+    }
+    @RequestMapping("/returnById")
+    public String returnBookById(Model model,String bookId ){
+        recordMapper.returnById(bookId);
+        bookMapper.returnBookById(bookId);
+
+        return "redirect:/admin/record/getAll";
     }
 }
