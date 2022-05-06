@@ -5,6 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
     <title>Book Manage System </title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
@@ -69,6 +70,12 @@
         <tr>
             <th>publish-time</th>
             <td th:text="${books[0].getPublishTime()}"></td>
+        </tr>
+        <tr>
+            <th>Picture</th>
+            <td>
+                <img th:src="@{${books[0].getPicture()}}" style="display: block;width: 400px;height: 300px">
+            </td>
         </tr>
     </table>
 

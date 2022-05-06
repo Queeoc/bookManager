@@ -46,9 +46,9 @@
     </delete>
 
     <insert id="addBook" parameterType="Book">
-        insert into book_info(isbn,bookName,author,publisher,publishTime,`floor`,state,price,category,description,face,`column`,`row`)
+        insert into book_info(isbn,bookName,author,publisher,publishTime,`floor`,state,price,category,description,face,`column`,`row`,picture)
         values (#{isbn}, #{bookName}, #{author}, #{publisher}, STR_TO_DATE(#{publishTime},'%Y-%m-%d'),
-                #{floor}, #{state}, #{price}, #{category}, #{description}, #{face}, #{column}, #{row})
+                #{floor}, #{state}, #{price}, #{category}, #{description}, #{face}, #{column}, #{row}, #{picture})
     </insert>
 
     <select id="searchBook" resultType="Book">

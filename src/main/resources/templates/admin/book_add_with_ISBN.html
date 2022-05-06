@@ -5,6 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
     <title>Book Manage System</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
@@ -54,7 +55,7 @@
     <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
         <div class="dropdown">
             <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-               th:text="root, Hello">
+               th:text="${session.name}+', Hello'">
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Personal Information</a>
@@ -100,6 +101,10 @@
         <div class="input-group">
             <label for="publishTime">publishTime</label>
             <input type="text" class="form-control" id="publishTime" name="publishTime" th:value="${book.getPublishTime()}">
+        </div>
+        <div class="input-group" hidden>
+            <label for="picture">picture</label>
+            <input type="text" class="form-control" id="picture" name="picture" th:value="${book.getPicture()}">
         </div>
         <div class="row">
             <div class="col">

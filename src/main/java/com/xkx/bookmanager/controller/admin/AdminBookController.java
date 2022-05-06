@@ -77,8 +77,8 @@ public class AdminBookController {
     @RequestMapping("/getByISBN")
     public String getByISBN(Model model,String ISBN_num){
         Book book=new Book();
-        String Publish_time,Publishing,Name,Author,Price,Description;
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+        String Publish_time,Publishing,Name,Author,Price,Description,PictureUrl;
+//        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
         try {
             String result = HttpRequest.get("https://api.jike.xyz/situ/book/isbn/"+ISBN_num+"?apikey=12458.27f8ef2c1fdf5d0a0ebb19642b3ec9c7.a13bf079099ad1c733d1b598caf82f91").body();
             //String result = HttpRequest.get("https://www.baidu.com").body();
@@ -94,6 +94,9 @@ public class AdminBookController {
             Publishing = (String) json.getJSONObject("data").get("publishing");
             Description = (String) json.getJSONObject("data").get("description");
             Price = (String) json.getJSONObject("data").get("price");
+            System.out.println("Price= "+ Price);
+            PictureUrl = (String) json.getJSONObject("data").get("photoUrl");
+            System.out.println("PictureUrl = " + PictureUrl);
 
             //统一日期格式
             if(Publish_time.length() == 0){
@@ -113,9 +116,11 @@ public class AdminBookController {
                 Publish_time = Publish_time.substring(0,10);
             }
 
+            if(PictureUrl.length() == 0){
+                PictureUrl = "/picture.jpg";
+            }
 
-
-
+            book.setPicture(PictureUrl);
             book.setBookName(Name);
             book.setAuthor(Author);
             book.setIsbn(ISBN_num);
@@ -129,7 +134,7 @@ public class AdminBookController {
             return "admin/book_add_with_ISBN";
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "网络连接失败 或 未找到");
+//            JOptionPane.showMessageDialog(null, "网络连接失败 或 未找到");
             return "redirect:/admin/book/getAll";
         }
 
