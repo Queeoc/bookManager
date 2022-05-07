@@ -31,6 +31,12 @@
             float: right;
         }
 
+        #payAtOnce {
+            position: relative;
+            float: right;
+            right: 10%;
+        }
+
     </style>
 </head>
 <body>
@@ -84,8 +90,9 @@
 <!--    </div>-->
 <!--</div>-->
 
-<div class="alert alert-primary" role="alert">
+<div class="alert alert-primary" role="alert" style="text-align: center">
     you need to pay [[${fine}]] yuan
+
 </div>
 
 <div class="container" style="margin-top: 40px">
@@ -95,7 +102,7 @@
             <th>bookId</th>
             <th>userId</th>
             <th>borrowDate</th>
-            <th>LatestReturnDate</th>
+            <th>LatestFineDate</th>
             <th>Fine</th>
             <th></th>
 
@@ -107,14 +114,14 @@
             <td th:text="${record.getBookId()}"></td>
             <td th:text="${record.getReaderId()}"></td>
             <td th:text="${#dates.format(record.getBorrowDate(),'yyyy-MM-dd')}"></td>
-            <td th:text="${#dates.format(record.getReturnDate(),'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(record.getLatestFineDay(),'yyyy-MM-dd')}"></td>
             <td th:text="${record.getFine()}"></td>
             <td>
-<!--                <a th:if="${record.getFine()}==0" th:href="@{'/user/record/returnBook/' + ${record.getBookId()}}"-->
-<!--                   class="btn btn-outline-success">Return</a>-->
+                <!--                <a th:if="${record.getFine()}==0" th:href="@{'/user/record/returnBook/' + ${record.getBookId()}}"-->
+                <!--                   class="btn btn-outline-success">Return</a>-->
 
-<!--                <a th:if="${record.getFine()}==0" th:href="@{'/user/record/renewBook/' + ${record.getBookId()}}"-->
-<!--                   class="btn btn-outline-success">Renew</a>-->
+                <!--                <a th:if="${record.getFine()}==0" th:href="@{'/user/record/renewBook/' + ${record.getBookId()}}"-->
+                <!--                   class="btn btn-outline-success">Renew</a>-->
                 <a th:if="${record.getFine()}!=0"
                    th:href="@{'/user/toPay/' + ${record.getBookId()}+'/'+ ${record.getFine()}}"
                    class="btn btn-outline-warning">Pay the fine</a>
@@ -125,12 +132,25 @@
     </table>
 </div>
 
+<a id="payAtOnce"
+        th:href="@{'/user/toPayAtOnce/'+ ${fine}}"
+        class="btn btn-outline-primary btn-lg" th:if="${fine} ne '0'">pay at once
+</a>
 
-<script>
+
+<script th:inline="javascript">
     window.onload = function () {
         let f = [[${fine}]];
-        console.log(f);
+        let recordList=[[${records}]];
+        for(let i=0;i<recordList.length;i++){
+            if(recordList[i].fine!==0){
 
+            }
+        }
+
+
+        console.log(recordList);
+        console.log(f);
 
 
     }

@@ -7,7 +7,6 @@ import com.xkx.bookmanager.pojo.Book;
 import com.xkx.bookmanager.pojo.Record;
 import com.xkx.bookmanager.pojo.Reserve;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -54,20 +54,28 @@ public class UserBookController {
         return "user/book_search_result";
     }
 
-    @RequestMapping("/borrow/{id}")
-    public String borrow(HttpSession session, Model model, @PathVariable("id") String id){
-        bookMapper.borrowBookById(id);
+    @RequestMapping("/borrow")
+    public String borrow(HttpSession session, Model model){
         String username = (String) session.getAttribute("username");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        List<Reserve> Books = reserveMapper.getReserveBooksByReaderId(username);
+        Iterator<Reserve> it = Books.iterator();
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Calendar nowTime = Calendar.getInstance();
         Calendar returnTime = Calendar.getInstance();
-        returnTime.add(Calendar.DATE,10);
+        returnTime.add(Calendar.DATE, 10);
         Date nowtime = nowTime.getTime();
         Date returntime = returnTime.getTime();
 
-        Record r=new Record(id,username,nowtime,returntime);
-        recordMapper.insertRecord(r);
+        while(it.hasNext()) {
+            Reserve re = it.next();
+            String id = re.getBookId();
+            reserveMapper.deleteReservation(id);
+            bookMapper.borrowBookById(id);
+
+            Record r = new Record(id, username, nowtime, returntime);
+            recordMapper.insertRecord(r);
+        }
         List<Book> books = bookMapper.getAllBook();
         model.addAttribute("books",books);
         return "redirect:/user/book/getAll";

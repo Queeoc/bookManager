@@ -74,6 +74,7 @@
             <th>bookId</th>
             <th>ReaderId</th>
             <th>BorrowDate</th>
+            <th>Latest Return Date</th>
         </tr>
         </thead>
         <tbody>
@@ -81,6 +82,7 @@
             <td th:text="${record.getBookId()}"></td>
             <td th:text="${record.getReaderId()}"></td>
             <td th:text="${#dates.format(record.getBorrowDate(),'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(record.getLatestFineDay(),'yyyy-MM-dd')}"></td>
         </tr>
         </tbody>
     </table>

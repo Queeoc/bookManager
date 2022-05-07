@@ -17,14 +17,14 @@ public class Record {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date borrowDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date returnDate;
+    private Date latestFineDay;
     private int fine;
 
     public Record(String id, String username, Date nowtime, Date returntime) {
         this.bookId=id;
         this.readerId=username;
         this.borrowDate=nowtime;
-        this.returnDate=returntime;
+        this.latestFineDay=returntime;
     }
 
 

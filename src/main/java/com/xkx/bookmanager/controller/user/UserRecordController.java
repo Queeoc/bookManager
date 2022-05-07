@@ -26,7 +26,7 @@ public class UserRecordController {
         /*得到用户名*/
         String username = (String) session.getAttribute("username");
         List<Record> record = recordMapper.getOwnRecord(username);
-        Iterator it = record.iterator();
+        Iterator<Record> it = record.iterator();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         int sumFine = 0;
 
@@ -34,14 +34,15 @@ public class UserRecordController {
         long date1 = now.getTime();
         while (it.hasNext()) {
             Record r = (Record) it.next();
-            long date2 = r.getReturnDate().getTime();   //应还
+            long date2 = r.getLatestFineDay().getTime();   //应还
 
             if (date1 - date2 > 0) {
-                sumFine = (int) ((date1 - date2) / (1000 * 3600 * 24));
+                sumFine += (int) ((date1 - date2) / (1000 * 3600 * 24));
+                r.setFine((int) ((date1 - date2) / (1000 * 3600 * 24)));
             } else {
-                sumFine = 0;
+                r.setFine(0);
             }
-            r.setFine(sumFine);
+
         }
 
         model.addAttribute("fine", sumFine);
@@ -52,15 +53,13 @@ public class UserRecordController {
 
 
     @RequestMapping("/renewBook/{bookId}")
-    public String renewBook(Model model, HttpSession session, @PathVariable("bookId") String id,int days) {
+    public String renewBook(Model model, HttpSession session, @PathVariable("bookId") String id) {
         /*得到用户名*/
         String username = (String) session.getAttribute("username");
         /*修改退书时间*/
         Record r = recordMapper.getRecord(id, username);
         Calendar returnTime = Calendar.getInstance();
-        ;
-        returnTime.setTime(r.getReturnDate());
-        returnTime.add(Calendar.DATE, days);
+
         Date returntime = returnTime.getTime();
         recordMapper.updateRecordById(username, id, returntime);
         /*更新列表*/
@@ -95,7 +94,7 @@ public class UserRecordController {
         while (it.hasNext()) {
             Record r = (Record) it.next();
             Date date1 = new Date();//现在
-            Date date2 = r.getReturnDate();   //应还
+            Date date2 = r.getLatestFineDay();   //应还
 
             if ((int) (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24) > 0) ;
             {

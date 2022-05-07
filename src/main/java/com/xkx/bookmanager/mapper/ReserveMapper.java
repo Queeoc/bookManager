@@ -13,4 +13,6 @@ public interface ReserveMapper {
     List<Reserve> getReserveBooksByReaderId(String readerId);
 
     void insertReserveBook(Reserve reserveBook);
+    void deleteReservation(String bookId);
+
 }

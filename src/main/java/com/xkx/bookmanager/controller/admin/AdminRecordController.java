@@ -38,7 +38,7 @@ public class AdminRecordController {
             calendar.setTime(record.getBorrowDate());
             calendar.add(Calendar.DATE, timeLimit);
             Date t =  calendar.getTime();
-            record.setReturnDate(t);
+            record.setLatestFineDay(t);
 
         }
 

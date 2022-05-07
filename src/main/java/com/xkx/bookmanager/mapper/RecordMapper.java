@@ -12,7 +12,7 @@ import java.util.List;
 public interface RecordMapper {
     List<Record> getAllRecord();
     List<Record> getOwnRecord(String readerId);
-    void updateRecordById(String readerId, String bookId, Date returnDate);
+    void updateRecordById(String readerId, String bookId, Date latestFineDay);
 
     void insertRecord(Record record);
     int getRecordNum(String readerId);

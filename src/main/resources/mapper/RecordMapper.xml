@@ -12,11 +12,11 @@
     </select>
 
     <update id="updateRecordById" parameterType="Record">
-        update lend_list set returnDate = #{returnDate} where readerId = #{readerId} and bookId=#{bookId}
+        update lend_list set latestFineDay = #{latestFineDay} where readerId = #{readerId} and bookId=#{bookId}
     </update>
 
     <insert id="insertRecord" parameterType="Record">
-        insert into lend_list values(#{bookId},#{readerId},#{borrowDate})
+        insert into lend_list values(#{bookId},#{readerId},#{borrowDate},#{latestFineDay})
     </insert>
 
     <select id="getRecordNum" resultType="int">

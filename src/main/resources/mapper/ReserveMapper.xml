@@ -12,4 +12,9 @@
          values (#{bookId}, #{name}, #{readerId},STR_TO_DATE(#{reserveTime},'%Y-%m-%d %T'), #{barcode}, #{isbn}, #{bookName});
     </update>
 
+    <delete id="deleteReservation">
+        delete from reservation_info where bookId = #{bookId}
+    </delete>
+
+
 </mapper>

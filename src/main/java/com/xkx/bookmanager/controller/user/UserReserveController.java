@@ -21,7 +21,9 @@ public class UserReserveController {
     public String getAllReserveByName(HttpSession session, Model model){
         String username = (String) session.getAttribute("username");
         List<Reserve> Books = reserveMapper.getReserveBooksByReaderId(username);
+        int reserveNum=Books.size();
 
+        model.addAttribute("reserveNum",reserveNum);
         model.addAttribute("ReserveBooks",Books);
 
 
