@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @SpringBootTest
 class BookmanagerApplicationTests {
@@ -45,6 +47,13 @@ class BookmanagerApplicationTests {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Test
+    public void test1(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowtime = format.format(new Date());
+        System.out.println(nowtime);
     }
 
 }

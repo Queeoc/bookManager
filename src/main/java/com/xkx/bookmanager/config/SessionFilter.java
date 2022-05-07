@@ -36,13 +36,14 @@ public class SessionFilter implements Filter {
 		if (session.getAttribute("name") == null) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String username = ((UserDetails) principal).getUsername();
-			String name = "admin";
-			if (!username.equals("admin")) {
+			String name = "root";
+			if (!username.equals("root")) {
 				name = readerMapper.getReaderName(username);
 			}
 
 			session.setAttribute("name", name);
 			session.setAttribute("username", username);
+			session.setAttribute("readerId",username);
 		}
 
 		filterChain.doFilter(servletRequest, servletResponse);

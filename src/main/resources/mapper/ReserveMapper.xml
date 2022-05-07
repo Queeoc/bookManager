@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xkx.bookmanager.mapper.ReserveMapper">
+    <select id="getReserveBooksByReaderId" resultType="Reserve">
+        select * from reservation_info where `readerId` = #{readerId};
+    </select>
+
+    <update id="insertReserveBook" parameterType="Reserve">
+        insert into reservation_info(bookId,`name`,readerId,reserveTime,barcode,isbn,bookName)
+         values (#{bookId}, #{name}, #{readerId},STR_TO_DATE(#{reserveTime},'%Y-%m-%d %T'), #{barcode}, #{isbn}, #{bookName});
+    </update>
+
+</mapper>

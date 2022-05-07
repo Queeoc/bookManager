@@ -11,8 +11,12 @@
         select name from reader_info where readerId = #{readerId}
     </select>
 
-    <select id="getReaderInfo" resultType="Reader">
+    <select id="getReaderInfoByReaderId" resultType="Reader">
         select * from reader_info where readerId = #{readerId}
+    </select>
+
+    <select id="getReaderInfoByName" resultType="Reader">
+        select * from reader_info where `name` = #{name};
     </select>
 
     <update id="updateInfo" parameterType="Reader">

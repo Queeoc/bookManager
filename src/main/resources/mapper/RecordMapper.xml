@@ -16,7 +16,7 @@
     </update>
 
     <insert id="insertRecord" parameterType="Record">
-        insert into lend_list values(#{bookId},#{readerId},#{borrowDate},#{returnDate})
+        insert into lend_list values(#{bookId},#{readerId},#{borrowDate})
     </insert>
 
     <select id="getRecordNum" resultType="int">

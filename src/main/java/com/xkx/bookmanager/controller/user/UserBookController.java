@@ -1,12 +1,13 @@
 package com.xkx.bookmanager.controller.user;
 
 import com.xkx.bookmanager.mapper.BookMapper;
-import com.xkx.bookmanager.mapper.ReaderMapper;
 import com.xkx.bookmanager.mapper.RecordMapper;
+import com.xkx.bookmanager.mapper.ReserveMapper;
 import com.xkx.bookmanager.pojo.Book;
 import com.xkx.bookmanager.pojo.Record;
+import com.xkx.bookmanager.pojo.Reserve;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,9 @@ public class UserBookController {
 
     @Autowired
     private RecordMapper recordMapper;
+
+    @Autowired
+    private ReserveMapper reserveMapper;
 
     @RequestMapping("/getAll")
     public String getAll(HttpSession session, Model model) {
@@ -66,6 +70,23 @@ public class UserBookController {
         recordMapper.insertRecord(r);
         List<Book> books = bookMapper.getAllBook();
         model.addAttribute("books",books);
+        return "redirect:/user/book/getAll";
+    }
+
+    @RequestMapping("/reserve/{id}")
+    public String reserve(HttpSession session, Model model, @PathVariable("id") String id){
+        bookMapper.borrowBookById(id);
+        String username = (String) session.getAttribute("username");
+        String name = (String) session.getAttribute("name");
+        Book book = bookMapper.getBookById(id);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowtime = format.format(new Date());
+        System.out.println(username + "---" + name +  "----" +nowtime);
+        Reserve reserveBook = new Reserve(id, name, username, nowtime, book.getBookBarcode(), book.getIsbn(), book.getBookName());
+        reserveMapper.insertReserveBook(reserveBook);
+        System.out.println("success");
+
+
         return "redirect:/user/book/getAll";
     }
 }
