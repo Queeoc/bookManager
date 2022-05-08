@@ -91,6 +91,7 @@
                 <th>face</th>
                 <th>row</th>
                 <th>column</th>
+                <th>bookBarcode</th>
                 <th>state</th>
                 <th></th>
                 <th></th>
@@ -105,6 +106,9 @@
             <td th:text="${book.getFace()}"></td>
             <td th:text="${book.getRow()}"></td>
             <td th:text="${book.getColumn()}"></td>
+            <td>
+                <img th:src="@{${book.getBookBarcode()}}">
+            </td>
             <div th:switch="${book.getState()}">
                 <td th:case="1">available</td>
                 <td th:case="0">unavailable</td>

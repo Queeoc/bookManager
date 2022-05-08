@@ -27,7 +27,6 @@ public class AdminBookController {
         List<Book> books = bookMapper.getAllBook();
         model.addAttribute("books", books);
 
-        System.out.println(books.get(0));
         return "admin/books";
     }
 

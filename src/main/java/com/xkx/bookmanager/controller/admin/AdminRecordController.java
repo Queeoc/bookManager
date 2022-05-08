@@ -39,7 +39,6 @@ public class AdminRecordController {
             calendar.add(Calendar.DATE, timeLimit);
             Date t =  calendar.getTime();
             record.setLatestFineDay(t);
-
         }
 
         model.addAttribute("records", records);
