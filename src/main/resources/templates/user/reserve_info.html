@@ -37,6 +37,12 @@
 
             text-align: center;
         }
+        #messageIfFull {
+            margin-top: 30px;
+            color: #007bff;
+
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -115,7 +121,7 @@
                 <img th:src="@{${book.getBarcode()}}">
             </td>
             <td>
-            <td><a th:href="@{'/admin/book/unreserve/' + ${book.getBookId()}}" class="btn btn-outline-info">Delete</a></td>
+            <td><a th:href="@{'/user/reserve/delete/' + ${book.getBookId()}}" class="btn btn-outline-info">Delete</a></td>
             </td>
         </tr>
         </tbody>
@@ -124,13 +130,16 @@
 </div>
 
 <div>
-    <a th:if="${reserveNum} ne '0'" th:href="@{/user/book/borrow}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">Borrow</a>
+    <a th:if="${reserveNum} ne '0' and ${isFull} eq 0" th:href="@{/user/book/borrow}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">Borrow</a>
 </div>
 
-<div th:if="${reserveNum} eq '0'" style="width: 100%">
+<div th:if="${reserveNum} eq '0' " style="width: 100%">
     <h1 id="messageIfNone">you have not reserved a book</h1>
 </div>
 
+<div th:if="${isFull} eq '1' " style="width: 100%">
+    <h1 id="messageIfFull">you only can borrow 5 books</h1>
+</div>
 <!--<script th:inline="javascript">-->
 <!--    let a = [[${recording}]];-->
 <!--    window.onload = function () {-->

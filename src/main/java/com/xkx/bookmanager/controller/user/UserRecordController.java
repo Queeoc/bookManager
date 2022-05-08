@@ -42,7 +42,6 @@ public class UserRecordController {
             } else {
                 r.setFine(0);
             }
-
         }
 
         model.addAttribute("fine", sumFine);

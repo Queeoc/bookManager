@@ -150,7 +150,6 @@ public class AdminBookController {
         for (Book book1 : bookMapper.getBookByIsbn(book.getIsbn())) {
             book1.setBookBarcode("/"+book1.getBookId()+".jpg");
             bookMapper.updateBookBarcodeByIsbn(book1);
-
         }
         List<Book> books = bookMapper.getBookByIsbn(book.getIsbn());
         Collections.sort(books, new Comparator<Book>() {
@@ -162,6 +161,7 @@ public class AdminBookController {
                 return 0;
             }
         });
+
         List<Book> booksSub = new ArrayList<>();
         for (int i = 0; i <n; i++) {
             booksSub.add(books.get(i));
