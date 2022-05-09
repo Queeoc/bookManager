@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Manage System </title>
+  <meta name="referrer" content="no-referrer">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    nav {
+      font-size: 1.5rem;
+      background-color: #21D4FD;
+      background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+      background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+      background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+      background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+    }
+    h1 {
+      font-size: 2rem;
+      color: white;
+    }
+    li {
+      margin: 10px 20px;
+    }
+    #searchBox {
+      width: 300px;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav" sec:authorize="hasRole('ADMIN')">
+    <li>
+      <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/admin/book/getAll}">Book Manage </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/admin/reader/getAll}">Reader Manage </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/admin/record/getAll}">Borrow Manage</a>
+    </li>
+  </ul>
+
+  <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+    <div class="dropdown">
+      <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+         th:text="${session.name}+', Hello'">
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person Information</a>
+        <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+        <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 40px">
+  <h1 style="color: #007bff">ADD SUCCESS</h1>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>BookId</th>
+
+      <th>bookBarcode</th>
+
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="book: ${books}">
+      <!--/*@thymesVar id="getBook_name" type="com.xkx.bookmanager.pojo.Book"*/-->
+      <td th:text="${book.getBookId()}"></td>
+
+      <td>
+        <img th:src="@{${book.getBookBarcode()}}">
+      </td>
+         </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<script th:inline="javascript">
+  window.onload = function (){
+    let book=[[${books}]]
+
+    console.log(book);
+  }
+</script>
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

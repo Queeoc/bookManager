@@ -74,12 +74,12 @@ public class AdminBookController {
     }
 
     @RequestMapping("/getByISBN")
-    public String getByISBN(Model model,String ISBN_num){
-        Book book=new Book();
-        String Publish_time,Publishing,Name,Author,Price,Description,PictureUrl;
+    public String getByISBN(Model model, String ISBN_num) {
+        Book book = new Book();
+        String Publish_time, Publishing, Name, Author, Price, Description, PictureUrl;
 //        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
         try {
-            String result = HttpRequest.get("https://api.jike.xyz/situ/book/isbn/"+ISBN_num+"?apikey=12458.27f8ef2c1fdf5d0a0ebb19642b3ec9c7.a13bf079099ad1c733d1b598caf82f91").body();
+            String result = HttpRequest.get("https://api.jike.xyz/situ/book/isbn/" + ISBN_num + "?apikey=12458.27f8ef2c1fdf5d0a0ebb19642b3ec9c7.a13bf079099ad1c733d1b598caf82f91").body();
             //String result = HttpRequest.get("https://www.baidu.com").body();
 
             //将返回字符串转换为JSON对象
@@ -93,29 +93,29 @@ public class AdminBookController {
             Publishing = (String) json.getJSONObject("data").get("publishing");
             Description = (String) json.getJSONObject("data").get("description");
             Price = (String) json.getJSONObject("data").get("price");
-            System.out.println("Price= "+ Price);
+            System.out.println("Price= " + Price);
             PictureUrl = (String) json.getJSONObject("data").get("photoUrl");
             System.out.println("PictureUrl = " + PictureUrl);
 
             //统一日期格式
-            if(Publish_time.length() == 0){
+            if (Publish_time.length() == 0) {
                 Publish_time = "1990-03-01";
             }
-            if(Publish_time.length() < 7 && Publish_time.indexOf(5) != '0'){
-                Publish_time = new StringBuilder(Publish_time).insert(5,'0').toString();
+            if (Publish_time.length() < 7 && Publish_time.indexOf(5) != '0') {
+                Publish_time = new StringBuilder(Publish_time).insert(5, '0').toString();
             }
 
-            if(Publish_time.length() == 7){
+            if (Publish_time.length() == 7) {
                 Publish_time = Publish_time + "-01";
             }
-            if(Publish_time.length() <10){
-                Publish_time = new StringBuilder(Publish_time).insert(8,'0').toString();
+            if (Publish_time.length() < 10) {
+                Publish_time = new StringBuilder(Publish_time).insert(8, '0').toString();
             }
-            if(Publish_time.length() >10){
-                Publish_time = Publish_time.substring(0,10);
+            if (Publish_time.length() > 10) {
+                Publish_time = Publish_time.substring(0, 10);
             }
 
-            if(PictureUrl.length() == 0){
+            if (PictureUrl.length() == 0) {
                 PictureUrl = "/picture.jpg";
             }
 
@@ -128,7 +128,7 @@ public class AdminBookController {
             book.setPublisher(Publishing);
             book.setPrice(Price);
 
-            model.addAttribute("book",book);
+            model.addAttribute("book", book);
 
             return "admin/book_add_with_ISBN";
 
@@ -141,35 +141,34 @@ public class AdminBookController {
 
 
     @RequestMapping("/add")
-    public String add(Model model, Book book, @ModelAttribute(value="number") String number) {
-        int n=Integer.parseInt(number);
-        for (int i=0;i<n;i++) {
+    public String add(Model model, Book book, @ModelAttribute(value = "number") String number) {
+        int n = Integer.parseInt(number);
+        for (int i = 0; i < n; i++) {
             book.setState(1);
             bookMapper.addBook(book);
         }
         for (Book book1 : bookMapper.getBookByIsbn(book.getIsbn())) {
-            book1.setBookBarcode("/"+book1.getBookId()+".jpg");
+            book1.setBookBarcode("/" + book1.getBookId() + ".jpg");
             bookMapper.updateBookBarcodeByIsbn(book1);
         }
         List<Book> books = bookMapper.getBookByIsbn(book.getIsbn());
         Collections.sort(books, new Comparator<Book>() {
             @Override
             public int compare(Book o1, Book o2) {
-                if(Integer.parseInt(o1.getBookId()) < Integer.parseInt(o2.getBookId()))
+                if (Integer.parseInt(o1.getBookId()) > Integer.parseInt(o2.getBookId()))
                     return -1;
 
                 return 0;
             }
         });
-
         List<Book> booksSub = new ArrayList<>();
-        for (int i = 0; i <n; i++) {
+        for (int i = 0; i < n; i++) {
             booksSub.add(books.get(i));
         }
 
-        model.addAttribute("books",booksSub);
-
-        return "redirect:/admin/book/getAll";
+        model.addAttribute("books", booksSub);
+        return "admin/book_add_success";
+//        return "redirect:/admin/book/getAll";
     }
 
     @RequestMapping("/search")
