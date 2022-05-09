@@ -19,7 +19,7 @@ public class UserReaderController {
     @RequestMapping("/toInfoPage")
     public String toInfoPage(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
-        Reader info = readerMapper.getReaderInfo(username);
+        Reader info = readerMapper.getReaderInfoByReaderId(username);
         model.addAttribute("info", info);
         return "user/reader_info";
     }

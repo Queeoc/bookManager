@@ -19,12 +19,13 @@ public class Record {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date latestFineDay;
     private int fine;
+    private String bookBarcode;
 
-    public Record(String id, String username, Date nowtime, Date returntime) {
+    public Record(String id, String username, Date borrowDate, Date latestFineDay) {
         this.bookId=id;
         this.readerId=username;
-        this.borrowDate=nowtime;
-        this.latestFineDay=returntime;
+        this.borrowDate=borrowDate;
+        this.latestFineDay=latestFineDay;
     }
 
 

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -32,6 +34,18 @@ public class UserReserveController {
         List<Record> record = recordMapper.getOwnRecord(username);
         int reserveNum=Books.size(); //预定书目
         int recordNum=record.size(); //已有记录
+        int isFined = 0;
+        Date date = new Date();
+        long date1 = date.getTime();
+
+        Iterator<Record> it = record.iterator();
+        while (it.hasNext()){
+            Record r = (Record) it.next();
+            long date2 = r.getLatestFineDay().getTime();
+            if (date1 - date2 > 86400000) {
+                isFined = 1;
+            }
+        }
 
         if(reserveNum+recordNum>5){
             model.addAttribute("isFull",1);
@@ -40,6 +54,7 @@ public class UserReserveController {
             model.addAttribute("isFull",0);
         }
 
+        model.addAttribute("isFined",isFined);
         model.addAttribute("reserveNum",reserveNum);
         model.addAttribute("ReserveBooks",Books);
         return "/user/reserve_info";

@@ -39,6 +39,8 @@ public class AdminRecordController {
             calendar.add(Calendar.DATE, timeLimit);
             Date t =  calendar.getTime();
             record.setLatestFineDay(t);
+
+            record.setBookBarcode("/"+record.getBookId()+".jpg");
         }
 
         model.addAttribute("records", records);

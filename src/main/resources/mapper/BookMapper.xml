@@ -54,7 +54,9 @@
     <select id="searchBook" resultType="Book">
         select * from book_info where bookName like '%${keyword}%' or
         publisher like '%${keyword}%' or
-        author like '%${keyword}%'
+        author like '%${keyword}%' or
+        bookId like '%${keyword}%'
+        group by isbn
     </select>
 
     <update id="borrowBookById" >

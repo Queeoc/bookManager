@@ -75,6 +75,7 @@
             <th>ReaderId</th>
             <th>BorrowDate</th>
             <th>Latest Return Date</th>
+            <th>bookBarcode</th>
         </tr>
         </thead>
         <tbody>
@@ -83,6 +84,9 @@
             <td th:text="${record.getReaderId()}"></td>
             <td th:text="${#dates.format(record.getBorrowDate(),'yyyy-MM-dd')}"></td>
             <td th:text="${#dates.format(record.getLatestFineDay(),'yyyy-MM-dd')}"></td>
+            <td>
+                <img th:src="@{${record.getBookBarcode()}}">
+            </td>
         </tr>
         </tbody>
     </table>

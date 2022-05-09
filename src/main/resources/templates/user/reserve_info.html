@@ -95,6 +95,23 @@
     </div>
 </div>
 
+<div class="modal fade" id="fineModel" data-show="true" aria-labelledby="staticBackdropLabel1" aria-hidden="true"
+     tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel1">Fined!</h5>
+            </div>
+            <div class="modal-body">
+                <div>you have to pay the fine if you want to borrow books</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container" style="margin-top: 40px">
     <table class="table table-hover" style="margin-top: 20px">
@@ -130,7 +147,7 @@
 </div>
 
 <div>
-    <a th:if="${reserveNum} ne '0' and ${isFull} eq 0" th:href="@{/user/book/borrow}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">Borrow</a>
+    <a th:if="${reserveNum} ne '0' and ${isFull} eq 0 and ${isFined} eq 0" th:href="@{/user/book/borrow}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">Borrow</a>
 </div>
 
 <div th:if="${reserveNum} eq '0' " style="width: 100%">
@@ -161,6 +178,11 @@
         if([[${reserveNum}]] !== 0 ) {
             $('#reserveModel').modal('show')
         }
+
+        if([[${isFined}]] == 1){
+            $('#fineModel').modal('show')
+        }
+
     }
 </script>
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>

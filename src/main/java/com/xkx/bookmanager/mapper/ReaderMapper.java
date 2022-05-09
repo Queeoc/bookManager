@@ -11,7 +11,8 @@ import java.util.List;
 public interface ReaderMapper {
     List<Reader> getAllReader();
     String getReaderName(String readerId);
-    Reader getReaderInfo(String readerId);
+    Reader getReaderInfoByName(String name);
     void updateInfo(Reader reader);
     void addReader(Reader reader);
+    Reader getReaderInfoByReaderId(String readerId);
 }
