@@ -8,11 +8,15 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
-   
 
     @RequestMapping({"/", "/index"})
     public String login(HttpSession session) {
-        return "index";
+        String username = (String) session.getAttribute("name");
+        if (username == "root") {
+            return "admin/index";
+        } else {
+            return "user/index";
+        }
     }
 
     @RequestMapping({"/toLoginPage"})
