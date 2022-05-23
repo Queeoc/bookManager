@@ -13,9 +13,9 @@ public class LoginController {
     public String login(HttpSession session) {
         String username = (String) session.getAttribute("name");
         if (username == "root") {
-            return "admin/index";
+            return "redirect:admin/index";
         } else {
-            return "user/index";
+            return "redirect:user/index";
         }
     }
 

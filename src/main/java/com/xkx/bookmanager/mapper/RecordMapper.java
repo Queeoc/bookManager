@@ -21,4 +21,12 @@ public interface RecordMapper {
 
     void returnById(String bookId);
 
+    int getTotalBorrows();
+
+    int getTotalReturnedBooksById(String readerId);
+
+    Record getRecordByBookId(String bookId);
+
+
+    int[] getNotifyBooksIdByReaderId(String readerId);
 }

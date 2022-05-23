@@ -21,6 +21,7 @@ public class Book {
     private String price;
 
     private String publishTime;
+    //state 有四个取值，0为可借状态，1为被借状态，2为丢失状态，3为损坏状态
     private int state;
     private String face;
     private String column;

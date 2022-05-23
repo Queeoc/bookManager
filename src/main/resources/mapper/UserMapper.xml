@@ -18,4 +18,8 @@
     <insert id="insertUser" parameterType="User">
         insert into user values (#{username},#{password},#{role})
     </insert>
+
+    <select id="getTotalReaderCounts" resultType="int">
+        select count(*) from user where role = 'user'
+    </select>
 </mapper>

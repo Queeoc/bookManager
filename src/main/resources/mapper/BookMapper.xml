@@ -53,14 +53,20 @@
 
     <select id="searchBook" resultType="Book">
         select * from book_info where bookName like '%${keyword}%' or
-        publisher like '%${keyword}%' or
-        author like '%${keyword}%' or
-        bookId like '%${keyword}%'
+        isbn like '%${keyword}%'
         group by isbn
     </select>
 
     <update id="borrowBookById" >
         update book_info set state = 0 where bookId = #{bookId}
+    </update>
+
+    <update id="lostBook">
+        update book_info set state = 2 where bookId = #{bookId}
+    </update>
+
+    <update id="damageBook">
+        update book_info set state = 3 where bookId = #{bookId}
     </update>
 
     <update id="returnBookById" >
@@ -69,4 +75,21 @@
     <update id="updateBookBarcodeByIsbn" parameterType="Book">
         update book_info set bookBarcode = #{bookBarcode} where bookId = #{bookId}
     </update>
+
+    <select id="getTotalBookCounts" resultType="int">
+        select count(*) from book_info
+    </select>
+
+    <select id="getTotalBookCopies" resultType="int">
+        select count(distinct (isbn)) from book_info
+    </select>
+
+    <select id="getTotalLostBooks" resultType="int">
+        select count(*) from book_info where state = 2
+    </select>
+
+    <select id="getTotalDamagedBooks" resultType="int">
+        select count(*) from book_info where state = 3
+    </select>
+
 </mapper>

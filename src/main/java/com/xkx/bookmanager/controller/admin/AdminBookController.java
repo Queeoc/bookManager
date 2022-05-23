@@ -63,6 +63,18 @@ public class AdminBookController {
         return "redirect:/admin/book/getAll";
     }
 
+    @RequestMapping("/lost/{id}")
+    public String lost(@PathVariable("id") String id){
+        bookMapper.lostBook(id);
+        return "redirect:/admin/book/getAll";
+    }
+
+    @RequestMapping("/damage/{id}")
+    public String damage(@PathVariable("id") String id){
+        bookMapper.damageBook(id);
+        return "redirect:/admin/book/getAll";
+    }
+
     @RequestMapping("/toAddPage")
     public String toAddPage() {
         return "admin/book_add";

@@ -49,8 +49,12 @@ public class AdminRecordController {
     }
     @RequestMapping("/returnById")
     public String returnBookById(Model model,String bookId ){
+
+        Record record = recordMapper.getRecordByBookId(bookId);
+        recordMapper.insertRecord(record);
         recordMapper.returnById(bookId);
         bookMapper.returnBookById(bookId);
+
 
         return "redirect:/admin/record/getAll";
     }

@@ -20,6 +20,7 @@ public class Record {
     private Date latestFineDay;
     private int fine;
     private String bookBarcode;
+    private int state;
 
     public Record(String id, String username, Date borrowDate, Date latestFineDay) {
         this.bookId=id;

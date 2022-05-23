@@ -27,12 +27,33 @@
         select *  from lend_list where bookId = #{bookId} and readerId=#{readerId}
     </select>
 
+    <select id="getRecordByBookId" resultType="Record">
+        select * from lend_lsit where bookId = #{bookId}
+    </select>
+
     <delete id="deleteRecord">
         delete from lend_list where bookId = #{bookId} and readerId=#{readerId}
     </delete>
     <delete id="returnById" >
         delete from lend_list where bookId = #{bookId}
     </delete>
+
+    <select id="getTotalBorrows" resultType="int">
+        select count(*) from lend_list
+    </select>
+
+    <select id="getTotalReturnedBooksById" parameterType="String" resultType="int">
+        select count(*) from borrow_history where readerId = #{readerId}
+    </select>
+
+    <insert id="insertBookHistory" parameterType="Record">
+        insert into borrow_history(readerId,bookId,borrowDate,returnDate,state) values (#{readerId},#{bookId},#{borrowDate},#{latestFineDay},0)
+    </insert>
+
+    <select id="getNotifyBooksByReaderId">
+        select bookId from borrow_history where readerId = #{readerId} and state = 0;
+        update borrow_history set state = 1 where readerId = #{readerId}
+    </select>
 
 
 </mapper>

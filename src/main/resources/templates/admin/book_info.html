@@ -77,7 +77,7 @@
         <tr>
             <th>picture</th>
             <td>
-                <img th:src="@{${books[0].getPicture()}}" style="display: block;width: 300px;height: 400px">
+                <img th:src="@{${books[0].getPicture()}}" style="display: block;width: 300px;height: 300px">
             </td>
         </tr>
     </table>
@@ -111,10 +111,18 @@
             </td>
             <div th:switch="${book.getState()}">
                 <td th:case="1">available</td>
-                <td th:case="0">unavailable</td>
+                <td th:case="0">unavailable(borrowed)</td>
+                <td th:case="2">unavailable(losted)</td>
+                <td th:case="3">unavailable(damaged)</td>
             </div>
-            <td><a th:href="@{'/admin/book/toEditPage/' + ${book.getBookId()}}" class="btn btn-outline-info">Edit</a></td>
-            <td><a th:href="@{'/admin/book/delete/' + ${book.getBookId()}}" class="btn btn-outline-danger">Delete</a></td>
+            <div th:switch="${book.getState()}">
+                <td th:case="1"><a th:href="@{'/admin/book/toEditPage/' + ${book.getBookId()}}" class="btn btn-outline-info">Edit</a></td>
+                <td th:case="1 or 2 or 3"><a th:href="@{'/admin/book/delete/' + ${book.getBookId()}}" class="btn btn-outline-danger">Delete</a></td>
+                <td th:case="1"><a th:href="@{'/admin/book/lost/' + ${book.getBookId()}}" class="btn btn-outline-danger">Lost</a></td>
+                <td th:case="1"><a th:href="@{'/admin/book/damage/' + ${book.getBookId()}}" class="btn btn-outline-danger">Damage</a></td>
+
+            </div>
+
         </tr>
         </tbody>
     </table>

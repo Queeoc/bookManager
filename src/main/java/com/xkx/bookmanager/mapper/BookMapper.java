@@ -20,4 +20,14 @@ public interface BookMapper {
     List<Book> getBookByIsbn(String isbn);
     void returnBookById(String bookId);
     void updateBookBarcodeByIsbn(Book book);
+    void lostBook(String bookId);
+    void damageBook(String bookId);
+
+    int getTotalBookCounts();
+
+    int getTotalBookCopies();
+
+    int getTotalLostBooks();
+
+    int getTotalDamagedBooks();
 }
