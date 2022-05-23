@@ -6,9 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Manage System </title>
-    <script src="../../static/icon/iconfont.js"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
+    <style type="text/css">
         .icon {
             position: absolute;
             right: 20px;
@@ -16,7 +15,6 @@
             height: 3em;
             vertical-align: -0.15em;
             fill: currentColor;
-
             overflow: hidden;
         }
 
@@ -169,7 +167,7 @@
             <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
                 <div class="card-header">
                     <h1>78</h1>
-                    <svg class="icon" aria-hidden="true">
+                    <svg class="icon" >
                         <use xlink:href="#icon-book1"></use>
                     </svg>
                 </div>
@@ -234,7 +232,7 @@
 </div>
 </div>
 
-
+<script th:src="@{icon/iconfont.js}"></script>
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -8,6 +8,17 @@
     <title>Book Manage System </title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
+        .icon {
+            position: absolute;
+            right: 20px;
+            width: 3em;
+            height: 3em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+
+            overflow: hidden;
+        }
+
         nav {
             font-size: 1.5rem;
             background-color: #21D4FD;
@@ -16,79 +27,145 @@
             background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
             background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
         }
+
         h1 {
-            font-size: 2rem;
+            font-size: 3rem;
         }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 0px;
+        }
+
         li {
             margin: 10px 20px;
+
         }
+
         body {
-/*             background-image: url("../static/img/2.jpg"); */
+            /*             background-image: url("../static/img/2.jpg"); */
             background-size: cover;
+        }
+
+
+        .card-header {
+            height: 100px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+
+        }
+
+        .card-body {
+            height: 70px;
+            /*padding: 0px;*/
+            padding-left: 10px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-        <ul class="navbar-nav" sec:authorize="hasRole('ADMIN')">
-            <li>
-                <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/book/getAll}">Book Manage</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/reader/getAll}">Reader Manage</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/record/getAll}">Borrow Manage</a>
-            </li>
-        </ul>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
 
-        <ul class="navbar-nav" sec:authorize="hasRole('USER')">
-            <li>
-                <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System</a></h1>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/book/getAll}">Book List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/record/getOwnRecord}">Borrow Record</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/reserve/getAll}">Reserve Record</a>
-            </li>
-        </ul>
-        <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
-            <div class="dropdown">
-                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        th:text="${session.username}+', Hello'">
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person Information</a>
-                    <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
-                    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+
+    <ul class="navbar-nav" sec:authorize="hasRole('USER')">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System</a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/user/book/getAll}">Book List</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/user/record/getOwnRecord}">Borrow Record</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/user/reserve/getAll}">Reserve Record</a>
+        </li>
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false"
+               th:text="${session.username}+', Hello'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person
+                    Information</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row" style="margin-bottom: 30px;margin-top: 60px">
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>23</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-book2"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Current Borrowed books
+                    </p>
                 </div>
             </div>
         </div>
-    </nav>
-
-    <div class="card bg-light" style="margin: 150px 100px; width: 400px;">
-        <div class="card-header">
-            <h1>Welcome</h1>
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>43</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-books"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Last Return Books
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <p>
-                后端框架: SpringBoot <br>
-                HTML模板: ThymeLeaf <br>
-                持久层: Mybatis <br>
-                UI: Bootstrap <br>
-                登录验证和用户权限: SpringSecurity
-            </p>
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>23</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-book"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Fine Amount (total)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>78</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-dictionary-fill"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Reserve Status
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+</div>
 
-
+<script th:src="@{icon/iconfont.js}"></script>
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
