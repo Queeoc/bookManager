@@ -6,8 +6,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Manage System </title>
+    <script src="../../static/icon/iconfont.js"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
+        .icon {
+            position: absolute;
+            right: 20px;
+            width: 3em;
+            height: 3em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+
+            overflow: hidden;
+        }
+
         nav {
             font-size: 1.5rem;
             background-color: #21D4FD;
@@ -18,16 +30,40 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 3rem;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 0px;
         }
 
         li {
             margin: 10px 20px;
+
         }
 
         body {
             /*             background-image: url("../static/img/2.jpg"); */
             background-size: cover;
+        }
+
+
+        .card-header {
+            height: 100px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+
+        }
+
+        .card-body {
+            height: 70px;
+            /*padding: 0px;*/
+            padding-left: 10px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
         }
     </style>
 </head>
@@ -66,56 +102,136 @@
 </nav>
 
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-bottom: 30px;margin-top: 30px">
         <div class="col-sm">
-            <div class="card bg-light" style="margin: 10px 10px; width: 200px;">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
                 <div class="card-header">
-                    <h1>Welcome</h1>
+                    <h1>23</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-book2"></use>
+                    </svg>
                 </div>
                 <div class="card-body">
                     <p>
-                        后端框架: SpringBoot <br>
-                        HTML模板: ThymeLeaf <br>
-                        持久层: Mybatis <br>
-                        UI: Bootstrap <br>
-                        登录验证和用户权限: SpringSecurity
+                        Total Registered Readers
                     </p>
                 </div>
             </div>
         </div>
         <div class="col-sm">
-            <div class="card bg-light" style="margin: 10px 10px; width: 200px;">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
                 <div class="card-header">
-                    <h1>Welcome</h1>
+                    <h1>43</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-books"></use>
+                    </svg>
                 </div>
                 <div class="card-body">
                     <p>
-                        后端框架: SpringBoot <br>
-                        HTML模板: ThymeLeaf <br>
-                        持久层: Mybatis <br>
-                        UI: Bootstrap <br>
-                        登录验证和用户权限: SpringSecurity
+                        Total Books
                     </p>
                 </div>
             </div>
         </div>
         <div class="col-sm">
-            <div class="card bg-light" style="margin: 10px 10px; width: 200px;">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
                 <div class="card-header">
-                    <h1>Welcome</h1>
+                    <h1>23</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-book-fill"></use>
+                    </svg>
                 </div>
                 <div class="card-body">
                     <p>
-                        后端框架: SpringBoot <br>
-                        HTML模板: ThymeLeaf <br>
-                        持久层: Mybatis <br>
-                        UI: Bootstrap <br>
-                        登录验证和用户权限: SpringSecurity
+                        Total Book Copies
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>78</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-dictionary-fill"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Total Borrows
                     </p>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row" style="margin-bottom: 20px;margin-top: 50px">
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>78</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-book1"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Total Lost Books
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>78</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-book"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Total Fine (UnPaid)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class="card-header">
+                    <h1>78</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-ic_broken_image_48px"></use>
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Total Damage Books
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
+                <div class=" card-header
+            ">
+                    <h1>78</h1>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-ic_broken_image_48px"></use>
+                    </svg>
+                </div>
+
+                <div class="card-body">
+                    <p>
+                        Total Fine Collected
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 </div>
 
 
