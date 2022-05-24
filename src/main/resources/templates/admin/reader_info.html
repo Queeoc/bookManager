@@ -84,18 +84,18 @@
         <table class="table table-hover" style="margin-top: 20px">
             <thead>
             <tr>
-                <th>Book Id</th>
+                <th>BookId</th>
                 <th>BorrowDate</th>
-                <th>LastReturn Date</th>
+
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="book: ${books}">
+            <tr th:each="book: ${bookBorrowed}">
                 <!--/*@thymesVar id="getBook_name" type="com.xkx.bookmanager.pojo.Book"*/-->
-                <td th:text="${book.getBookName()}"></td>
-                <td th:text="${book.getAuthor()}"></td>
-                <td th:text="${book.getPublisher()}"></td>
+                <td th:text="${book.getBookId()}"></td>
+                <td th:text="${#dates.format(book.getBorrowDate(),'yyyy-MM-dd')}"></td>
+
 
             </tr>
             </tbody>
@@ -106,18 +106,18 @@
         <table class="table table-hover" style="margin-top: 20px">
             <thead>
             <tr>
-                <th>Book Id</th>
+                <th>BookId</th>
                 <th>Borrow Date</th>
                 <th>Return Date</th>
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="book: ${books}">
+            <tr th:each="book: ${bookHistory}">
                 <!--/*@thymesVar id="getBook_name" type="com.xkx.bookmanager.pojo.Book"*/-->
-                <td th:text="${book.getBookName()}"></td>
-                <td th:text="${book.getAuthor()}"></td>
-                <td th:text="${book.getPublisher()}"></td>
+                <td th:text="${book.getBookId()}"></td>
+                <td th:text="${#dates.format(book.getBorrowDate(),'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(book.getReturnDate(),'yyyy-MM-dd')}"></td>
 
             </tr>
             </tbody>
@@ -128,17 +128,15 @@
         <table class="table table-hover" style="margin-top: 20px">
             <thead>
             <tr>
-                <th>Book Id</th>
-                <th>Fine Date</th>
-                <th>Fine Count</th>
+                <th>FineDate</th>
+                <th>FineCount</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="book: ${books}">
+            <tr th:each="fine: ${fineHistory}">
                 <!--/*@thymesVar id="getBook_name" type="com.xkx.bookmanager.pojo.Book"*/-->
-                <td th:text="${book.getBookName()}"></td>
-                <td th:text="${book.getAuthor()}"></td>
-                <td th:text="${book.getPublisher()}"></td>
+                <td th:text="${#dates.format(fine.getFineDay(),'yyyy-MM-dd')}"></td>
+                <td th:text="${fine.getFineCount()}"></td>
             </tr>
             </tbody>
         </table>

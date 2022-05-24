@@ -32,5 +32,5 @@ public interface RecordMapper {
 
     void setBookStateByReaderId(String readerId);
 
-    int getNotifyBooksCount(String readerId);
+    List<Record> getOwnBookHistory(String readerId);
 }

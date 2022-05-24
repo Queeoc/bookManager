@@ -50,12 +50,16 @@
         insert into borrow_history(readerId,bookId,borrowDate,returnDate,state) values (#{readerId},#{bookId},#{borrowDate},#{latestFineDay},0)
     </insert>
 
-    <select id="getNotifyBooksIdByReaderId" parameterType="string" resultType="Record">
+    <select id="getNotifyBooksIdByReaderId" parameterType="String" resultType="Record">
         select * from borrow_history where readerId = #{readerId} and state = 0
     </select>
 
     <update id="setBookStateByReaderId" parameterType="String">
         update borrow_history set state = 1 where readerId = #{readerId}
     </update>
+
+    <select id="getOwnBookHistory" parameterType="String" resultType="Record">
+        select * from borrow_history where readerId = #{readerId}
+    </select>
 
 </mapper>

@@ -7,6 +7,10 @@
         select sum(fineCount) from fine_history
     </select>
 
+    <select id="getFineById" resultType="Fine" parameterType="String">
+        select * from fine_history where readerId = #{readerId}
+    </select>
+
 
 
 </mapper>

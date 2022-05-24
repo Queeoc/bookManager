@@ -1,8 +1,12 @@
 package com.xkx.bookmanager.controller.admin;
 
+import com.xkx.bookmanager.mapper.FineMapper;
 import com.xkx.bookmanager.mapper.ReaderMapper;
+import com.xkx.bookmanager.mapper.RecordMapper;
 import com.xkx.bookmanager.mapper.UserMapper;
+import com.xkx.bookmanager.pojo.Fine;
 import com.xkx.bookmanager.pojo.Reader;
+import com.xkx.bookmanager.pojo.Record;
 import com.xkx.bookmanager.util.barCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,12 @@ public class AdminReaderController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RecordMapper recordMapper;
+
+    @Autowired
+    private FineMapper fineMapper;
 
     @RequestMapping("/getAll")
     public String getAll(Model model) {
@@ -45,6 +55,22 @@ public class AdminReaderController {
         readerMapper.addReader(reader);
 
         return "redirect:/admin/reader/getAll";
+    }
+
+    @RequestMapping("/searchById")
+    public String searchById(Model model, String readerId){
+
+        List<Record> bookHistory = recordMapper.getOwnBookHistory(readerId);
+        List<Record> bookBorrowed = recordMapper.getOwnRecord(readerId);
+        List<Fine> fineList = fineMapper.getFineById(readerId);
+
+
+        model.addAttribute("fineHistory",fineList);
+        model.addAttribute("bookHistory",bookHistory);
+        model.addAttribute("bookBorrowed",bookBorrowed);
+
+
+        return "admin/reader_info";
     }
 
 }

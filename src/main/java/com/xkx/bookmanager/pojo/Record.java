@@ -18,6 +18,8 @@ public class Record {
     private Date borrowDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date latestFineDay;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date returnDate;
     private int fine;
     private String bookBarcode;
     private int state;
@@ -27,6 +29,14 @@ public class Record {
         this.readerId=username;
         this.borrowDate=borrowDate;
         this.latestFineDay=latestFineDay;
+    }
+
+    public Record(String readerId, String username, Date borrowDate, Date returnDate, int state){
+        this.bookId = readerId;
+        this.readerId = username;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+        this.state = state;
     }
 
 
