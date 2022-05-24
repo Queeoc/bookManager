@@ -35,5 +35,20 @@ public class RegisterController {
         readerMapper.addReader(reader);
         return "login";
     }
+    @RequestMapping("/registerByRoot")
+    public String registerByRoot(String username,String password){
+        userMapper.insertUser(username,password, "user");
+        // userMapper.insertUser("test","password", "user");
+
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String path = "D:\\pillar\\" + username + ".jpg";
+        barCodeUtil.getBarCode(username,path);
+        String barcode = "/" + username + ".jpg";
+
+        Reader reader=new Reader(barcode,username,null,null,date,"游客-" + username,null);
+        readerMapper.addReader(reader);
+        return "redirect:admin/reader/getAll";
+    }
 
 }
