@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -34,15 +35,25 @@ public class UserReaderController {
 
     @RequestMapping("/index")
     private String index(HttpSession session, Model model){
+        System.out.println("1111111111111");
         String username = (String)session.getAttribute("username");
         int borrowedBooks = recordMapper.getOwnRecord(username).size();
         int returnBooks = recordMapper.getTotalReturnedBooksById(username);
         int sumFine = 0;
         int reserveSuccess = 0;
         int reserveFail = 0;
-        int[] bookIds = new int[5];
         Date date = new Date();
         long date1 = date.getTime();
+        List<Record> records = recordMapper.getNotifyBooksIdByReaderId(username);
+//        Iterator<Record> it1 = records.iterator();
+//        int count = 0;
+//        while(it1.hasNext()){
+//            Record r1 = it1.next();
+//            System.out.println(records.get(count).getBookId());
+//            count++;
+//        }
+
+
         List<Record> record = recordMapper.getOwnRecord(username);
         Iterator<Record> it = record.iterator();
         while (it.hasNext()){
@@ -69,22 +80,24 @@ public class UserReaderController {
             }
         }
 
-        bookIds = recordMapper.getNotifyBooksIdByReaderId(username);
-        int size = bookIds.length;
+        int reserveTotal = reserveFail + reserveSuccess;
+        recordMapper.setBookStateByReaderId(username);
+
 
         model.addAttribute("borrowedBooks",borrowedBooks);
         model.addAttribute("returnBooks",returnBooks);
         model.addAttribute("sumFine",sumFine);
         model.addAttribute("reserveSuccess",reserveSuccess);
         model.addAttribute("reserveFail",reserveFail);
-        model.addAttribute("bookIds",bookIds);
-        model.addAttribute("size",size);
-//
-//        System.out.println(borrowedBooks);
-//        System.out.println(returnBooks);
-//        System.out.println(sumFine);
-//        System.out.println(reserveFail);
-//        System.out.println(reserveSuccess);
+        model.addAttribute("records",records);
+        model.addAttribute("reserveTotal",reserveTotal);
+
+
+        System.out.println(borrowedBooks);
+        System.out.println(returnBooks);
+        System.out.println(sumFine);
+        System.out.println(reserveFail);
+        System.out.println(reserveSuccess);
 
 
         return "user/index";

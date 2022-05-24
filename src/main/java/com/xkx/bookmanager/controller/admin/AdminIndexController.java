@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-@RequestMapping("admin")
+@RequestMapping("/admin")
 @Controller
 public class AdminIndexController {
 

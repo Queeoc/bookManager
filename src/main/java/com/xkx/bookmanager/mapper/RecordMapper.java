@@ -28,5 +28,9 @@ public interface RecordMapper {
     Record getRecordByBookId(String bookId);
 
 
-    int[] getNotifyBooksIdByReaderId(String readerId);
+    List<Record> getNotifyBooksIdByReaderId(String readerId);
+
+    void setBookStateByReaderId(String readerId);
+
+    int getNotifyBooksCount(String readerId);
 }
