@@ -31,38 +31,31 @@
             float: right;
         }
 
-        .container {
-            display: flex;
-            padding-inline: 10px;
-            margin-left: 100px;
-            margin-right: 10px;
-        }
-
         .flex-item {
-            flex: 1;
-            margin: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
-
-
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-    <ul class="navbar-nav" sec:authorize="hasRole('ADMIN')">
+    <ul class="navbar-nav">
         <li>
             <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" th:href="@{/admin/book/getAll}">Book Manage </a>
+            <a class="nav-link" th:href="@{/user/book/getAll}">Book List </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/reader/getAll}">Reader Manage </a>
+            <a class="nav-link" th:href="@{/user/record/getOwnRecord}">Borrow Record</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/record/getAll}">Borrow Manage</a>
+            <a class="nav-link" th:href="@{/user/reserve/getAll}">Reserve Record</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/user/history/getAll}">history record</a>
         </li>
     </ul>
-
     <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
         <div class="dropdown">
             <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -79,8 +72,8 @@
     </div>
 </nav>
 
-<div class="container" style="margin-top: 40px">
 
+<div class="container" style="margin-top: 40px">
     <div class="flex-item">
         <h1 style="color: black">Borrow History</h1>
         <table class="table table-hover" style="margin-top: 20px">
@@ -143,9 +136,6 @@
     </div>
 </div>
 
-
-</div>
-</div>
 
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>

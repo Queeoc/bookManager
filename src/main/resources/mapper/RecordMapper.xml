@@ -28,7 +28,7 @@
     </select>
 
     <select id="getRecordByBookId" resultType="Record">
-        select * from lend_lsit where bookId = #{bookId}
+        select * from lend_list where bookId = #{bookId}
     </select>
 
     <delete id="deleteRecord">

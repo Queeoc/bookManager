@@ -88,9 +88,17 @@
             flex-flow: column;
             justify-content: center;
         }
-        .person{
+
+        .person {
             margin: 40px;
             align-self: flex-start;
+            justify-self: center;
+            align-self: center;
+        }
+
+        .notification {
+            font-size: 25px;
+            inline-height: 20px;
         }
     </style>
 </head>
@@ -176,8 +184,7 @@
         <div class="col-sm">
             <div class="card bg-light" style="margin: 10px 10px; width: 230px;box-shadow: 8px 8px 4px #888888;">
                 <div class="card-header">
-
-
+                    <h1 th:text="${reserveSuccess}"></h1>
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-dictionary-fill"></use>
                     </svg>
@@ -195,6 +202,12 @@
             <div class="person">
                 <h1 style="font-size: 1.5rem">Dear</h1>
                 <h1 th:text="${session.username}" style="font-size: 1.5rem"></h1>
+            </div>
+            <div>
+                <p class="notification" th:text="'You have '+ ${borrowedBooks} + ' books to return'"></p>
+                <p class="notification" th:text="'You have reserved ' +${reserveTotal} +' books, and '+ ${reserveFail} +' are expired' "></p>
+                <p class="notification" th:text="'You have paid ' + ${paidFine} +' yuan because of delay penalty'"> </p>
+
             </div>
             <div id="timeBox"><h1 style="text-align: center; font-size: 2rem">Current Time</h1>
                 <div id="nowDateTimeYear" style="text-align: center;font-size: 1.3rem"></div>

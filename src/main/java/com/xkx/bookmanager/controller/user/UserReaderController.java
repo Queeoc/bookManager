@@ -1,8 +1,10 @@
 package com.xkx.bookmanager.controller.user;
 
+import com.xkx.bookmanager.mapper.FineMapper;
 import com.xkx.bookmanager.mapper.ReaderMapper;
 import com.xkx.bookmanager.mapper.RecordMapper;
 import com.xkx.bookmanager.mapper.ReserveMapper;
+import com.xkx.bookmanager.pojo.Fine;
 import com.xkx.bookmanager.pojo.Reader;
 import com.xkx.bookmanager.pojo.Record;
 import com.xkx.bookmanager.pojo.Reserve;
@@ -33,6 +35,9 @@ public class UserReaderController {
     @Autowired
     private ReserveMapper reserveMapper;
 
+    @Autowired
+    private FineMapper fineMapper;
+
     @RequestMapping("/index")
     private String index(HttpSession session, Model model){
         System.out.println("1111111111111");
@@ -40,8 +45,10 @@ public class UserReaderController {
         int borrowedBooks = recordMapper.getOwnRecord(username).size();
         int returnBooks = recordMapper.getTotalReturnedBooksById(username);
         int sumFine = 0;
+        int paidFine=0;
         int reserveSuccess = 0;
         int reserveFail = 0;
+
         Date date = new Date();
         long date1 = date.getTime();
         List<Record> records = recordMapper.getNotifyBooksIdByReaderId(username);
@@ -53,6 +60,12 @@ public class UserReaderController {
 //            count++;
 //        }
 
+        List<Fine>fine = fineMapper.getFineById(username);
+        Iterator<Fine> fineIt = fine.iterator();
+        while(fineIt.hasNext()){
+            Fine f = fineIt.next();
+            paidFine+=Integer.parseInt(f.getFineCount());
+        }
 
         List<Record> record = recordMapper.getOwnRecord(username);
         Iterator<Record> it = record.iterator();
@@ -87,17 +100,18 @@ public class UserReaderController {
         model.addAttribute("borrowedBooks",borrowedBooks);
         model.addAttribute("returnBooks",returnBooks);
         model.addAttribute("sumFine",sumFine);
+        model.addAttribute("paidFine",paidFine);
         model.addAttribute("reserveSuccess",reserveSuccess);
         model.addAttribute("reserveFail",reserveFail);
         model.addAttribute("records",records);
         model.addAttribute("reserveTotal",reserveTotal);
 
 
-        System.out.println(borrowedBooks);
-        System.out.println(returnBooks);
-        System.out.println(sumFine);
-        System.out.println(reserveFail);
-        System.out.println(reserveSuccess);
+//        System.out.println(borrowedBooks);
+//        System.out.println(returnBooks);
+//        System.out.println(sumFine);
+//        System.out.println(reserveFail);
+//        System.out.println(reserveSuccess);
 
 
         return "user/index";

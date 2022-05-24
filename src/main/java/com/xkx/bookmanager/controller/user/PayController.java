@@ -109,7 +109,6 @@ public class PayController {
                     + "\"total_amount\":\"" + price + "\","
                     + "\"subject\":\"" + title + "\","
                     + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-
             //请求
             String result;
             result = alipayClient.pageExecute(alipayRequest).getBody();
@@ -118,11 +117,19 @@ public class PayController {
 
             List<Record> record = recordMapper.getOwnRecord(username);
             Iterator<Record> it = record.iterator();
+
             while (it.hasNext()){
                 Record r = (Record) it.next();
                 long date2 = r.getLatestFineDay().getTime();
+                Fine f=new Fine();
+
                 if (date1 - date2 > 0) {
                     userRecordController.renewBook(model,session,r.getBookId());
+                    f.setBookId(r.getBookId());
+                    f.setFineCount(price);
+                    f.setFineDay(date);
+                    f.setReaderId(username);
+                    fineMapper.addFineRecord(f);
                 }
             }
                 //userRecordController.renewBook(model,session,bookId,days);

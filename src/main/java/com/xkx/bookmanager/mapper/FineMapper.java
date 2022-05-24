@@ -11,7 +11,7 @@ import java.util.List;
 public interface FineMapper {
 
     int getTotalFines();
-
+//
     List<Fine> getFineById(String readerId);
     void addFineRecord(Fine fine);
 //    Fine getFineById(String readerId);
