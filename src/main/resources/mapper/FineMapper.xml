@@ -11,6 +11,14 @@
         select * from fine_history where readerId = #{readerId}
     </select>
 
+    <insert id="addFineRecord" parameterType="Fine">
+        insert into fine_history values(#{readerId},#{fineDay},#{fineCount},#{bookId})
+    </insert>
+
+    <select id="addFineRecord" resultType="Fine" parameterType="String">
+        select * from fine_history where readerId = #{readerId}
+    </select>
+
 
 
 </mapper>

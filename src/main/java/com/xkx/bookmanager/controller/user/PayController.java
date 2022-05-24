@@ -5,7 +5,9 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.xkx.bookmanager.config.AlipayConfig;
 import com.xkx.bookmanager.mapper.BookMapper;
+import com.xkx.bookmanager.mapper.FineMapper;
 import com.xkx.bookmanager.mapper.RecordMapper;
+import com.xkx.bookmanager.pojo.Fine;
 import com.xkx.bookmanager.pojo.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +32,8 @@ public class PayController {
     private BookMapper bookMapper;
     @Autowired
     private UserRecordController userRecordController;
+    @Autowired
+    private FineMapper fineMapper;
 
 
 
@@ -68,6 +73,12 @@ public class PayController {
             /*请求完成后操作*/
             int days = Integer.parseInt(price);
             userRecordController.renewBook(model,session,bookId);
+            Fine f=new Fine();
+            f.setBookId(bookId);
+            f.setFineCount(price);
+            f.setFineDay(date);
+            f.setReaderId(username);
+            fineMapper.addFineRecord(f);
             return result;
         } catch (Exception e) {
             // TODO Auto-generated catch block

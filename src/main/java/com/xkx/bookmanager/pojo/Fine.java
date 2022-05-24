@@ -11,7 +11,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Fine {
-
     String readerId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date fineDay;
