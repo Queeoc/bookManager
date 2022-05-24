@@ -73,4 +73,16 @@ public class AdminReaderController {
         return "admin/reader_info";
     }
 
+    @RequestMapping("/deleteById")
+    public String deleteById(Model model, String readerId){
+
+        if(recordMapper.isBorrowedBookById(readerId) != 0){
+            model.addAttribute("failed",false);
+            return "admin/readers";
+        }else{
+            recordMapper.deleteById(readerId);
+            return "redirect:/admin/reader/getAll";
+        }
+    }
+
 }

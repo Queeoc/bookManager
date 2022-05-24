@@ -62,4 +62,12 @@
         select * from borrow_history where readerId = #{readerId}
     </select>
 
+    <select id="isBorrowedBookById" resultType="int">
+        select count(*) from lend_list where readerId = #{readerId}
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from lend_list where readerId = #{readerId}
+    </delete>
+
 </mapper>

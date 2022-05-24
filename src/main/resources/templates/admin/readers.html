@@ -114,6 +114,13 @@
         </div>
     </form>
 
+    <form th:action="@{/admin/reader/deleteById}" id="searchBox">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type the readerId to delete..." name="readerId">
+            <input type="submit" class="input-group-append btn btn-success" value="Delete">
+        </div>
+    </form>
+
     <table class="table table-hover" style="margin-top: 20px">
         <thead>
         <tr>
@@ -142,6 +149,8 @@
         </tbody>
     </table>
 </div>
+
+
 
 
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>

@@ -33,4 +33,8 @@ public interface RecordMapper {
     void setBookStateByReaderId(String readerId);
 
     List<Record> getOwnBookHistory(String readerId);
+
+    int isBorrowedBookById(String readerId);
+
+    void deleteById(String readerId);
 }
