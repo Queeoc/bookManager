@@ -66,6 +66,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person
                     Information</a>
+                <a class="dropdown-item" th:href="@{/}">Register Reader</a>
                 <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
                 <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>

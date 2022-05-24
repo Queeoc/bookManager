@@ -64,11 +64,38 @@
             justify-content: left;
             align-items: center;
         }
+
+        .dashBoard {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            box-shadow: 8px 8px 4px #888881;
+            border-radius: 10px;
+            background: rgb(0, 27, 36);
+            background: linear-gradient(90deg, rgba(0, 27, 36, 0.5489105310092788) 0%, rgba(9, 112, 121, 0.5180982060793067) 45%, rgba(0, 212, 255, 0.21837831812412467) 95%);
+            display: flex;
+            /*justify-content: flex-end;*/
+            align-items: center;
+        }
+
+        #timeBox {
+            margin-right: 20px;
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            right: 30px;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+        }
+        .person{
+            margin: 40px;
+            align-self: flex-start;
+        }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-
 
     <ul class="navbar-nav" sec:authorize="hasRole('USER')">
         <li>
@@ -163,8 +190,61 @@
             </div>
         </div>
     </div>
+    <div class="row" style="margin-bottom: 30px;margin-top: 10px">
+        <div class="dashBoard">
+            <div class="person">
+                <h1 style="font-size: 1.5rem">Dear</h1>
+                <h1 th:text="${session.username}" style="font-size: 1.5rem"></h1>
+            </div>
+            <div id="timeBox"><h1 style="text-align: center; font-size: 2rem">Current Time</h1>
+                <div id="nowDateTimeYear" style="text-align: center;font-size: 1.3rem"></div>
+                <div id="nowDateTimeDay" style="text-align: center;font-size: 1.4rem"></div>
+                <div id="nowDateTime" style="text-align: center;font-size: 1.5rem"></div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
+
+<script th:inline="javascript">
+    window.onload = function () {
+        startTime();
+    }
+
+    function startTime() {
+        let today = new Date();//定义日期对象
+        let yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年
+        let MM = today.getMonth() + 1;//通过日期对象的getMonth()方法返回年
+        let dd = today.getDate();//通过日期对象的getDate()方法返回年
+        let hh = today.getHours();//通过日期对象的getHours方法返回小时
+        let mm = today.getMinutes();//通过日期对象的getMinutes方法返回分钟
+        let ss = today.getSeconds();//通过日期对象的getSeconds方法返回秒
+        // 如果分钟或小时的值小于10，则在其值前加0，比如如果时间是下午3点20分9秒的话，则显示15：20：09
+        MM = checkTime(MM);
+        dd = checkTime(dd);
+        mm = checkTime(mm);
+        ss = checkTime(ss);
+        let day; //用于保存星期（getDay()方法得到星期编号）
+        if (today.getDay() == 0) day = "Sunday"
+        if (today.getDay() == 1) day = "Monday"
+        if (today.getDay() == 2) day = "Tuesday"
+        if (today.getDay() == 3) day = "Wednesday"
+        if (today.getDay() == 4) day = "Thursday"
+        if (today.getDay() == 5) day = "Friday"
+        if (today.getDay() == 6) day = "Saturday"
+        document.getElementById('nowDateTimeYear').innerHTML = yyyy + "-" + MM + "-" + dd;
+        document.getElementById('nowDateTimeDay').innerHTML = day;
+        document.getElementById('nowDateTime').innerHTML = hh + " : " + mm + " : " + ss;
+        setTimeout('startTime()', 1000);//每一秒中重新加载startTime()方法
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+</script>
 
 <script th:src="@{icon/iconfont.js}"></script>
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>

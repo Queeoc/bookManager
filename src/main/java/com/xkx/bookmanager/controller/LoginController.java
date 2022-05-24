@@ -14,11 +14,11 @@ public class LoginController {
         String username = (String) session.getAttribute("name");
         if (username == "root") {
             System.out.println(username);
-            return "redirect:admin/index";
+            return "redirect:/admin/index";
         } else {
             System.out.println(username);
             System.out.println("11111111111");
-            return "redirect:user/index";
+            return "redirect:/user/index";
         }
     }
 
