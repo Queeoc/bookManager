@@ -64,13 +64,13 @@ public class AdminBookController {
     }
 
     @RequestMapping("/lost/{id}")
-    public String lost(@PathVariable("id") String id){
+    public String lost(@PathVariable("id") String id) {
         bookMapper.lostBook(id);
         return "redirect:/admin/book/getAll";
     }
 
     @RequestMapping("/damage/{id}")
-    public String damage(@PathVariable("id") String id){
+    public String damage(@PathVariable("id") String id) {
         bookMapper.damageBook(id);
         return "redirect:/admin/book/getAll";
     }
@@ -197,10 +197,18 @@ public class AdminBookController {
     }
 
     @RequestMapping("/searchByLocation")
-    public String searchByLocation(Model model , String face , String column, String floor, String row){
-        List<Book> books = bookMapper.searchBookByLocation(floor,face,column,row);
+    public String searchByLocation(Model model, String face, String column, String floor, String row) {
+        List<Book> books = bookMapper.searchBookByLocation(floor, face, column, row);
 
-        model.addAttribute("books",books);
+        model.addAttribute("books", books);
+        return "admin/book_search_result";
+    }
+
+    @RequestMapping("/searchByCategory/{ca}")
+    public String searchByCategory(Model model, @PathVariable("ca") String ca) {
+//        List<Book> books = bookMapper.searchBookByLocation(floor,face,column,row);
+        List<Book> books = bookMapper.searchBookByCategory(ca);
+        model.addAttribute("books", books);
         return "admin/book_search_result";
     }
 }

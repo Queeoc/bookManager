@@ -92,7 +92,8 @@
         <h1 style="color: black">Category</h1>
         <ul class="list-group list-group-flush" th:each="ca:${categories}">
             <button type="button" class="list-group-item list-group-item-action"
-                    th:text="${ca}">
+            >
+                <a th:text="${ca}" th:href="@{'/admin/book/searchByCategory/'+${ca}}"></a>
             </button>
 
         </ul>
@@ -134,7 +135,7 @@
                 <td>
                     <a th:href="@{''}" class="btn btn-outline-success btn-sm">ADD</a></td>
                 </td>
-            </tr>s
+            </tr>
             <tr>
                 <th scope="row">floor</th>
                 <td th:text="${floor}"></td>

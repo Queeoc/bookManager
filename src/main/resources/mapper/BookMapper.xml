@@ -4,96 +4,139 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xkx.bookmanager.mapper.BookMapper">
     <select id="getAllBook" resultType="Book">
-        select * from book_info group by isbn;
+        select *
+        from book_info
+        group by isbn;
     </select>
-
 
 
     <select id="getBookByIsbn" resultType="Book">
-        select * from book_info where isbn = #{isbn}
+        select *
+        from book_info
+        where isbn = #{isbn}
     </select>
 
     <select id="getBookById" resultType="Book">
-        select * from book_info where BookId = #{bookId}
+        select *
+        from book_info
+        where BookId = #{bookId}
     </select>
 
-<!--    <update id="updateBook" parameterType="Book">-->
-<!--        update book_info-->
-<!--        set bookName = #{bookName}, author = #{author}, publisher = #{publisher}, isbn= #{isbn},-->
-<!--            description = #{description}, category = #{category}, price = #{price}, row = #{row},-->
-<!--            publishTime = #{publishTime}, floor = #{floor}, face = #{face}, column = #{column},-->
-<!--            state = #{state}-->
-<!--        where bookId = #{bookId}-->
-<!--    </update>-->
+    <!--    <update id="updateBook" parameterType="Book">-->
+    <!--        update book_info-->
+    <!--        set bookName = #{bookName}, author = #{author}, publisher = #{publisher}, isbn= #{isbn},-->
+    <!--            description = #{description}, category = #{category}, price = #{price}, row = #{row},-->
+    <!--            publishTime = #{publishTime}, floor = #{floor}, face = #{face}, column = #{column},-->
+    <!--            state = #{state}-->
+    <!--        where bookId = #{bookId}-->
+    <!--    </update>-->
 
     <update id="updateBook" parameterType="Book">
         update book_info
-        set  row = #{row}, floor = #{floor}, face = #{face}, `column` = #{column}
-            where bookId = #{bookId}
+        set row      = #{row},
+            floor    = #{floor},
+            face     = #{face},
+            `column` = #{column}
+        where bookId = #{bookId}
     </update>
 
     <update id="updateBookBasic" parameterType="Book">
         update book_info
-        set bookName = #{bookName}, author = #{author}, publisher = #{publisher},
-            description = #{description}, category = #{category}, price = #{price},
+        set bookName    = #{bookName},
+            author      = #{author},
+            publisher   = #{publisher},
+            description = #{description},
+            category    = #{category},
+            price       = #{price},
             publishTime = #{publishTime}
 
         where isbn = #{isbn}
     </update>
 
     <delete id="deleteBook">
-        delete from book_info where bookId = #{bookId}
+        delete
+        from book_info
+        where bookId = #{bookId}
     </delete>
 
     <insert id="addBook" parameterType="Book">
-        insert into book_info(isbn,bookName,author,publisher,publishTime,`floor`,state,price,category,description,face,`column`,`row`,picture)
-        values (#{isbn}, #{bookName}, #{author}, #{publisher}, STR_TO_DATE(#{publishTime},'%Y-%m-%d'),
+        insert into book_info(isbn, bookName, author, publisher, publishTime, `floor`, state, price, category,
+                              description, face, `column`, `row`, picture)
+        values (#{isbn}, #{bookName}, #{author}, #{publisher}, STR_TO_DATE(#{publishTime}, '%Y-%m-%d'),
                 #{floor}, #{state}, #{price}, #{category}, #{description}, #{face}, #{column}, #{row}, #{picture})
     </insert>
 
     <select id="searchBook" resultType="Book">
-        select * from book_info where bookName like '%${keyword}%' or
-        isbn like '%${keyword}%'
+        select *
+        from book_info
+        where bookName like '%${keyword}%'
+           or isbn like '%${keyword}%'
         group by isbn
     </select>
 
-    <update id="borrowBookById" >
-        update book_info set state = 0 where bookId = #{bookId}
+    <update id="borrowBookById">
+        update book_info
+        set state = 0
+        where bookId = #{bookId}
     </update>
 
     <update id="lostBook">
-        update book_info set state = 2 where bookId = #{bookId}
+        update book_info
+        set state = 2
+        where bookId = #{bookId}
     </update>
 
     <update id="damageBook">
-        update book_info set state = 3 where bookId = #{bookId}
+        update book_info
+        set state = 3
+        where bookId = #{bookId}
     </update>
 
-    <update id="returnBookById" >
-        update book_info set state = 1 where bookId = #{bookId}
+    <update id="returnBookById">
+        update book_info
+        set state = 1
+        where bookId = #{bookId}
     </update>
     <update id="updateBookBarcodeByIsbn" parameterType="Book">
-        update book_info set bookBarcode = #{bookBarcode} where bookId = #{bookId}
+        update book_info
+        set bookBarcode = #{bookBarcode}
+        where bookId = #{bookId}
     </update>
 
     <select id="getTotalBookCounts" resultType="int">
-        select count(*) from book_info
+        select count(*)
+        from book_info
     </select>
 
     <select id="getTotalBookCopies" resultType="int">
-        select count(distinct (isbn)) from book_info
+        select count(distinct (isbn))
+        from book_info
     </select>
 
     <select id="getTotalLostBooks" resultType="int">
-        select count(*) from book_info where state = 2
+        select count(*)
+        from book_info
+        where state = 2
     </select>
 
     <select id="getTotalDamagedBooks" resultType="int">
-        select count(*) from book_info where state = 3
+        select count(*)
+        from book_info
+        where state = 3
     </select>
 
     <select id="searchBookByLocation" resultType="Book" parameterType="String">
-        select * from book_info where `floor` = #{floor} and `face` = #{face} and `column` = #{column} and `row` = #{row}
+        select *
+        from book_info
+        where `floor` = #{floor}
+          and `face` = #{face}
+          and `column` = #{column}
+          and `row` = #{row}
+    </select>
+    <select id="searchBookByCategory" resultType="Book" parameterType="String">
+        select *
+        from book_info
+        where `category` = #{category}
     </select>
 
 </mapper>
