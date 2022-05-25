@@ -2,6 +2,7 @@ package com.xkx.bookmanager.controller.user;
 
 import com.xkx.bookmanager.mapper.*;
 import com.xkx.bookmanager.pojo.*;
+import com.xkx.bookmanager.pojo.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,7 +66,6 @@ public class UserReaderController {
             Fine f = fineIt.next();
             paidFine+=Integer.parseInt(f.getFineCount());
         }
-
         List<Record> record = recordMapper.getOwnRecord(username);
         Iterator<Record> it = record.iterator();
         while (it.hasNext()){

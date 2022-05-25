@@ -134,6 +134,27 @@
         </div>
     </div>
 </nav>
+
+<!--<div class="alert alert-warning alert-dismissible fade show" role="alert">-->
+<!--    <strong>Holy guacamole!</strong> You should check in on some of those fields below.-->
+<!--    <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--        <span aria-hidden="true">&times;</span>-->
+<!--    </button>-->
+<!--</div>-->
+<div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header">
+            <strong class="mr-auto">Return Notify</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body" th:each="re,iterStat : ${records}">
+            <p th:text="'Return 《'+ ${re.getBookName()} +'》' + '('+${re.getBookId()}+') successfully'"></p>
+        </div>
+
+    </div>
+</div>
 <div class="container">
     <div th:each="record : ${records}">
         <!--/*@thymesVar id="getBook_name" type="com.xkx.bookmanager.pojo.Book"*/-->
@@ -214,8 +235,9 @@
             </div>
             <div>
                 <p class="notification" th:text="'You have '+ ${borrowedBooks} + ' books to return'"></p>
-                <p class="notification" th:text="'You have reserved ' +${reserveTotal} +' books, and '+ ${reserveFail} +' are expired' "></p>
-                <p class="notification" th:text="'You have paid ' + ${paidFine} +' yuan because of delay penalty'"> </p>
+                <p class="notification"
+                   th:text="'You have reserved ' +${reserveTotal} +' books, and '+ ${reserveFail} +' are expired' "></p>
+                <p class="notification" th:text="'You have paid ' + ${paidFine} +' yuan because of delay penalty'"></p>
                 <p class="notification" th:text="'you have '+ ${sumFine} + ' yuan to pay because of delay panelty'"></p>
 
             </div>
@@ -231,6 +253,7 @@
 
 <script th:inline="javascript">
     window.onload = function () {
+        $('#liveToast').toast('show')
         startTime();
     }
 

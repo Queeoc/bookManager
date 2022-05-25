@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Manage System </title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+
+        li {
+            margin: 10px 20px;
+        }
+
+        #searchBox {
+            width: 300px;
+            float: right;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .input-group {
+            display: flex;
+
+            margin-bottom: 10px;
+        }
+
+        .category, .location, .find {
+            margin: 50px;
+            padding: 20px;
+            border-radius: 5px;
+            border: 0.5px solid #4e555b;
+            box-shadow: 2px 2px 1px #888888;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav" sec:authorize="hasRole('ADMIN')">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">Book Manage System </a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/book/getAll}">Book Manage </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/reader/getAll}">Reader Manage </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/record/getAll}">Borrow Manage</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/admin/record/getAll}">parameter settings</a>
+        </li>
+    </ul>
+
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false"
+               th:text="${session.name}+', Hello'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Person
+                    Information</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="margin-top: 40px">
+
+    <div class="category">
+        <h1 style="color: black">Category</h1>
+        <ul class="list-group list-group-flush">
+            <button type="button" class="list-group-item list-group-item-action">
+                The current button
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">A second item</button>
+            <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+            <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+            <button type="button" class="list-group-item list-group-item-action" style="color: #007bff">ADD NEW
+                CATEGORY
+            </button>
+        </ul>
+    </div>
+    <div class="location">
+        <h1 style="color: black">Location</h1>
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Location</th>
+                <th scope="col">number</th>
+                <th scope="col">operate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">face</th>
+                <td>3</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">column</th>
+                <td>3</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">row</th>
+                <td>3</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">floor</th>
+                <td>3</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="find">
+        <form th:action="@{/admin/book/add}" method="post">
+            <div class="input-group">
+                <label for="floor" style="text-align: center;margin-bottom: 0px; width: 80px">face:</label>
+                <!--                    <input type="text" class="form-control" id="state" name="state">-->
+                <select class="form-select form-select-sm" id="face" name="face" aria-label=".form-select-sm example">
+                    <option selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="floor" style="text-align: center;margin-bottom: 0px; width: 80px">column:</label>
+                <!--                    <input type="text" class="form-control" id="state" name="state">-->
+                <select class="form-select form-select-sm" id="column" name="column"
+                        aria-label=".form-select-sm example">
+                    <option selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="floor" style="text-align: center;margin-bottom: 0px; width: 80px">row:</label>
+                <!--                    <input type="text" class="form-control" id="state" name="state">-->
+                <select class="form-select form-select-sm" id="row" name="row" aria-label=".form-select-sm example">
+                    <option selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="floor" style="text-align: center;margin-bottom: 0px; width: 80px">floor:</label>
+                <!--                    <input type="text" class="form-control" id="state" name="state">-->
+                <select class="form-select form-select-sm" id="floor" name="floor" aria-label=".form-select-sm example">
+                    <option selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <input type="submit" value="Find" class="btn btn-outline-primary btn-sm" style="float: right">
+        </form>
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">choose add ways</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--添加方式选择功能实现-->
+                <a th:href="@{/admin/book/toAddPage}" class="btn btn-outline-primary btn-lg">Add without ISBN</a>
+                <a th:href="@{/admin/book/toAddPageWithISBN}" class="btn btn-outline-primary btn-lg">Add with ISBN</a>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
