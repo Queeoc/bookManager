@@ -118,11 +118,20 @@
                 <td th:case="2">unavailable(losted)</td>
                 <td th:case="3">unavailable(damaged)</td>
             </div>
-            <div th:switch="${book.getState()}">
-                <td th:case="1"><a th:href="@{'/admin/book/toEditPage/' + ${book.getBookId()}}" class="btn btn-outline-info">Edit</a></td>
-                <td th:case="1 or 2 or 3"><a th:href="@{'/admin/book/delete/' + ${book.getBookId()}}" class="btn btn-outline-danger">Delete</a></td>
-                <td th:case="1"><a th:href="@{'/admin/book/lost/' + ${book.getBookId()}}" class="btn btn-outline-danger">Lost</a></td>
-                <td th:case="1"><a th:href="@{'/admin/book/damage/' + ${book.getBookId()}}" class="btn btn-outline-danger">Damage</a></td>
+            <div >
+                <td th:if="${book.getState() eq 1}">
+                    <a th:href="@{'/admin/book/toEditPage/' + ${book.getBookId()}}" class="btn btn-outline-info">Edit</a>
+                </td>
+                <td th:if="${book.getState() gt 0}">
+                            <a th:href="@{'/admin/book/delete/' + ${book.getBookId()}}" class="btn btn-outline-danger">Delete</a>
+
+                </td>
+                <td th:if="${book.getState() eq 1}">
+                    <a th:href="@{'/admin/book/lost/' + ${book.getBookId()}}" class="btn btn-outline-danger">Lost</a>
+                </td>
+                <td th:if="${book.getState() eq 1}">
+                    <a th:href="@{'/admin/book/damage/' + ${book.getBookId()}}" class="btn btn-outline-danger">Damage</a>
+                </td>
 
             </div>
 
