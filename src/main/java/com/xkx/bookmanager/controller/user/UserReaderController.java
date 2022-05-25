@@ -1,19 +1,14 @@
 package com.xkx.bookmanager.controller.user;
 
-import com.xkx.bookmanager.mapper.FineMapper;
-import com.xkx.bookmanager.mapper.ReaderMapper;
-import com.xkx.bookmanager.mapper.RecordMapper;
-import com.xkx.bookmanager.mapper.ReserveMapper;
-import com.xkx.bookmanager.pojo.Fine;
-import com.xkx.bookmanager.pojo.Reader;
-import com.xkx.bookmanager.pojo.Record;
-import com.xkx.bookmanager.pojo.Reserve;
+import com.xkx.bookmanager.mapper.*;
+import com.xkx.bookmanager.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.lang.System;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +33,9 @@ public class UserReaderController {
     @Autowired
     private FineMapper fineMapper;
 
+    @Autowired
+    private BookMapper bookMapper;
+
     @RequestMapping("/index")
     private String index(HttpSession session, Model model){
         System.out.println("1111111111111");
@@ -48,17 +46,17 @@ public class UserReaderController {
         int paidFine=0;
         int reserveSuccess = 0;
         int reserveFail = 0;
+        List<Book> rec = new ArrayList<>();
 
         Date date = new Date();
         long date1 = date.getTime();
         List<Record> records = recordMapper.getNotifyBooksIdByReaderId(username);
-//        Iterator<Record> it1 = records.iterator();
-//        int count = 0;
-//        while(it1.hasNext()){
-//            Record r1 = it1.next();
-//            System.out.println(records.get(count).getBookId());
-//            count++;
-//        }
+
+        Iterator<Record> it1 = records.iterator();
+        while(it1.hasNext()){
+            Record r1 = it1.next();
+            rec.add(bookMapper.getBookById(r1.getBookId()));
+        }
 
         List<Fine>fine = fineMapper.getFineById(username);
         Iterator<Fine> fineIt = fine.iterator();
@@ -103,7 +101,7 @@ public class UserReaderController {
         model.addAttribute("paidFine",paidFine);
         model.addAttribute("reserveSuccess",reserveSuccess);
         model.addAttribute("reserveFail",reserveFail);
-        model.addAttribute("records",records);
+        model.addAttribute("records",rec);
         model.addAttribute("reserveTotal",reserveTotal);
 
 

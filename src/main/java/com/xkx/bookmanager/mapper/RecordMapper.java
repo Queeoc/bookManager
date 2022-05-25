@@ -37,4 +37,6 @@ public interface RecordMapper {
     int isBorrowedBookById(String readerId);
 
     void deleteById(String readerId);
+
+    void insertBookHistory(Record record);
 }

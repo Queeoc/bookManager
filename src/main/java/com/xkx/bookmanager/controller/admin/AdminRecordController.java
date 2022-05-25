@@ -51,7 +51,7 @@ public class AdminRecordController {
     public String returnBookById(Model model,String bookId ){
 
         Record record = recordMapper.getRecordByBookId(bookId);
-        recordMapper.insertRecord(record);
+        recordMapper.insertBookHistory(record);
         recordMapper.returnById(bookId);
         bookMapper.returnBookById(bookId);
 
