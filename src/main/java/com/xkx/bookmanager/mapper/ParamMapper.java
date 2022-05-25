@@ -10,4 +10,12 @@ import java.util.List;
 public interface ParamMapper {
 
     List<String> getAllCategories();
+
+    int getRow();
+
+    int getColumn();
+
+    int getFace();
+
+    int getFloor();
 }

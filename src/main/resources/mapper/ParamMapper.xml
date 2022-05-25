@@ -6,4 +6,20 @@
     <select id="getAllCategories" resultType="String">
         select * from category_info;
     </select>
+
+    <select id="getFace" resultType="int">
+        select face from system_info;
+    </select>
+
+    <select id="getColumn" resultType="int">
+        select `column` from system_info;
+    </select>
+
+    <select id="getFloor" resultType="int">
+        select `floor` from system_info;
+    </select>
+
+    <select id="getRow" resultType="int">
+        select `row` from system_info;
+    </select>
 </mapper>
