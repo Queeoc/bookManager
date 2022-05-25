@@ -90,17 +90,16 @@
 
     <div class="category">
         <h1 style="color: black">Category</h1>
-        <ul class="list-group list-group-flush">
-            <button type="button" class="list-group-item list-group-item-action">
-                The current button
+        <ul class="list-group list-group-flush" th:each="ca:${categories}">
+            <button type="button" class="list-group-item list-group-item-action"
+                    th:text="${ca}">
             </button>
-            <button type="button" class="list-group-item list-group-item-action">A second item</button>
-            <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-            <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-            <button type="button" class="list-group-item list-group-item-action" style="color: #007bff">ADD NEW
-                CATEGORY
-            </button>
+
         </ul>
+        <button type="button" class="list-group-item list-group-item-action" data-toggle="modal"
+                data-target="#newCategory" style="color: #007bff">ADD NEW
+            CATEGORY
+        </button>
     </div>
     <div class="location">
         <h1 style="color: black">Location</h1>
@@ -126,6 +125,7 @@
                 <td>3</td>
                 <td>
                     <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+
                 </td>
             </tr>
             <tr>
@@ -199,7 +199,7 @@
 </div>
 
 
-<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="newCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -210,8 +210,17 @@
             </div>
             <div class="modal-body">
                 <!--添加方式选择功能实现-->
-                <a th:href="@{/admin/book/toAddPage}" class="btn btn-outline-primary btn-lg">Add without ISBN</a>
-                <a th:href="@{/admin/book/toAddPageWithISBN}" class="btn btn-outline-primary btn-lg">Add with ISBN</a>
+                <form th:action="@{/}" method="post">
+
+                    <div class="form-group">
+                        <label for="category" class="">category:</label>
+                        <input type="text" class="form-control" id="category" name="category">
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-lg" value="ADD" style="margin-top: 20px">
+                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal"
+                            style="margin-top: 20px">Close
+                    </button>
+                </form>
 
             </div>
             <div class="modal-footer">
@@ -220,6 +229,13 @@
     </div>
 </div>
 </div>
+
+<script th:inline="javascript">
+    window.onload = function () {
+        let cate = [[${categories}]];
+        console.log(cate);
+    }
+</script>
 
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>

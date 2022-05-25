@@ -8,18 +8,18 @@
     </select>
 
     <select id="getFace" resultType="int">
-        select face from system_info;
+        select face from location_info;
     </select>
 
     <select id="getColumn" resultType="int">
-        select `column` from system_info;
+        select `column` from location_info;
     </select>
 
     <select id="getFloor" resultType="int">
-        select `floor` from system_info;
+        select `floor` from location_info;
     </select>
 
     <select id="getRow" resultType="int">
-        select `row` from system_info;
+        select `row` from location_info;
     </select>
 </mapper>

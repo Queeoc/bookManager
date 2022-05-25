@@ -7,6 +7,7 @@ import com.xkx.bookmanager.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
@@ -31,7 +32,7 @@ public class AdminIndexController {
     private FineMapper fineMapper;
 
     @RequestMapping("/index")
-    public String index(Model model){
+    public String index(Model model) {
 
         int totalReaderCounts = userMapper.getTotalReaderCounts();
         int totalBookCounts = bookMapper.getTotalBookCounts();
@@ -45,7 +46,7 @@ public class AdminIndexController {
         long date1 = date.getTime();
         List<Record> record = recordMapper.getAllRecord();
         Iterator<Record> it = record.iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             Record r = (Record) it.next();
             long date2 = r.getLatestFineDay().getTime();
             if (date1 - date2 > 0) {
@@ -54,14 +55,14 @@ public class AdminIndexController {
         }
 
 
-        model.addAttribute("totalReaderCounts",totalReaderCounts);
-        model.addAttribute("totalBookCounts",totalBookCounts);
-        model.addAttribute("totalBookcopies",totalBookCopies);
-        model.addAttribute("totalBorrows",totalBorrows);
-        model.addAttribute("totalFines",totalFines);
-        model.addAttribute("totalUnpaidFines",totalUnpaidFines);
-        model.addAttribute("totalLostBooks",totalLostBooks);
-        model.addAttribute("totalDamagedBooks",totalDamagedBooks);
+        model.addAttribute("totalReaderCounts", totalReaderCounts);
+        model.addAttribute("totalBookCounts", totalBookCounts);
+        model.addAttribute("totalBookcopies", totalBookCopies);
+        model.addAttribute("totalBorrows", totalBorrows);
+        model.addAttribute("totalFines", totalFines);
+        model.addAttribute("totalUnpaidFines", totalUnpaidFines);
+        model.addAttribute("totalLostBooks", totalLostBooks);
+        model.addAttribute("totalDamagedBooks", totalDamagedBooks);
 
 
 //        System.out.println(totalBookCopies);
@@ -74,4 +75,5 @@ public class AdminIndexController {
 //        System.out.println(totalDamagedBooks);
         return "admin/index";
     }
+
 }
