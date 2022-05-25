@@ -101,7 +101,10 @@
         </div>
         <div class="input-group">
             <label for="category">category</label>
-            <input type="text" class="form-control" id="category" name="category">
+            <!--                    <input type="text" class="form-control" id="classId" name="classId">-->
+            <select class="custom-select" id="category" name="category">
+                <option selected>Choose...</option>
+            </select>
         </div>
         <div class="input-group">
             <label for="price">price</label>
@@ -124,9 +127,7 @@
                     <!--                    <input type="text" class="form-control" id="classId" name="classId">-->
                     <select class="custom-select" id="face" name="face">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -137,9 +138,7 @@
                     <!--            <input type="text" class="form-control" id="pressmark" name="pressmark">-->
                     <select class="custom-select" id="column" name="column">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -150,9 +149,7 @@
                     <!--                    <input type="text" class="form-control" id="state" name="state">-->
                     <select class="custom-select" id="row" name="row">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -164,9 +161,7 @@
                     <!--                    <input type="text" class="form-control" id="state" name="state">-->
                     <select class="custom-select" id="floor" name="floor">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -187,6 +182,42 @@
     </form>
 </div>
 
+
+<script th:inline="javascript">
+    function addOp(id, num) {
+        let obj = document.getElementById(id);
+        for (let i = 1; i <= num; i++) {
+            obj.options.add(new
+                Option('' + i, i)
+            )
+            ;
+        }
+    }
+
+    function addCa(num) {
+        let obj = document.getElementById("category");
+        for (let i = 0; i < num.length; i++) {
+            obj.options.add(new
+                Option('' + num[i], num[i])
+            )
+            ;
+        }
+    }
+
+    window.onload = function () {
+        let face = [[${face}]];
+        let column = [[${column}]];
+        let row = [[${row}]];
+        let floor = [[${floor}]];
+        let categories = [[${categories}]];
+        console.log(categories);
+        addOp("face", face);
+        addOp("column", column);
+        addOp("row", row);
+        addOp("floor", floor);
+        addCa(categories);
+    }
+</script>
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>

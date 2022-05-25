@@ -34,8 +34,8 @@ public class UserBookController {
     @RequestMapping("/getAll")
     public String getAll(HttpSession session, Model model) {
         List<Book> books = bookMapper.getAllBook();
-        int recordNum=recordMapper.getRecordNum((String) session.getAttribute("username"));
-        model.addAttribute("recording",recordNum);
+        int recordNum = recordMapper.getRecordNum((String) session.getAttribute("username"));
+        model.addAttribute("recording", recordNum);
         model.addAttribute("books", books);
         return "user/books";
     }
@@ -55,7 +55,7 @@ public class UserBookController {
     }
 
     @RequestMapping("/borrow")
-    public String borrow(HttpSession session, Model model){
+    public String borrow(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         List<Reserve> Books = reserveMapper.getReserveBooksByReaderId(username);
         Iterator<Reserve> it = Books.iterator();
@@ -67,7 +67,7 @@ public class UserBookController {
         Date nowtime = nowTime.getTime();
         Date returntime = returnTime.getTime();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Reserve re = it.next();
             String id = re.getBookId();
             reserveMapper.deleteReservation(id);
@@ -77,19 +77,42 @@ public class UserBookController {
             recordMapper.insertRecord(r);
         }
         List<Book> books = bookMapper.getAllBook();
-        model.addAttribute("books",books);
+        model.addAttribute("books", books);
+        return "redirect:/user/book/getAll";
+    }
+
+    @RequestMapping("/borrowOne/{id}")
+    public String borrowOne(HttpSession session, Model model, @PathVariable("id") String bookId) {
+        String username = (String) session.getAttribute("username");
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar nowTime = Calendar.getInstance();
+        Calendar returnTime = Calendar.getInstance();
+        returnTime.add(Calendar.DATE, 10);
+        Date nowtime = nowTime.getTime();
+        Date returntime = returnTime.getTime();
+
+
+        bookMapper.borrowBookById(bookId);
+
+        Record r = new Record(bookId, username, nowtime, returntime);
+        recordMapper.insertRecord(r);
+
+        List<Book> books = bookMapper.getAllBook();
+        model.addAttribute("books", books);
         return "redirect:/user/book/getAll";
     }
 
     @RequestMapping("/reserve/{id}")
-    public String reserve(HttpSession session, Model model, @PathVariable("id") String id){
+    public String reserve(HttpSession session, Model model, @PathVariable("id") String id) {
         bookMapper.borrowBookById(id);
         String username = (String) session.getAttribute("username");
         String name = (String) session.getAttribute("name");
         Book book = bookMapper.getBookById(id);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String nowtime = format.format(new Date());
-        System.out.println(username + "---" + name +  "----" +nowtime);
+        System.out.println(username + "---" + name + "----" + nowtime);
         Reserve reserveBook = new Reserve(id, name, username, nowtime, book.getBookBarcode(), book.getIsbn(), book.getBookName());
         reserveMapper.insertReserveBook(reserveBook);
         System.out.println("success");

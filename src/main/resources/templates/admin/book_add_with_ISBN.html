@@ -17,20 +17,25 @@
             background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
             background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
         }
+
         h1 {
             font-size: 2rem;
             color: white;
         }
+
         li {
             margin: 10px 20px;
         }
+
         th {
             width: 100px;
         }
+
         label {
             margin: auto;
             padding-right: 20px;
         }
+
         .input-group {
             margin-bottom: 10px;
         }
@@ -57,11 +62,13 @@
     </ul>
     <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
         <div class="dropdown">
-            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false"
                th:text="${session.name}+', Hello'">
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Personal Information</a>
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">Personal
+                    Information</a>
                 <a class="dropdown-item" th:href="@{/toChPwdPage}">Modify Password</a>
                 <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>
@@ -91,11 +98,16 @@
         </div>
         <div class="input-group">
             <label for="description">description</label>
-            <textarea type="text" class="form-control" id="description" name="description" >[[${book.getDescription()}]]</textarea>
+            <textarea type="text" class="form-control" id="description"
+                      name="description">[[${book.getDescription()}]]</textarea>
         </div>
         <div class="input-group">
             <label for="category">category</label>
-            <input type="text" class="form-control" id="category" name="category">
+            <!--                    <input type="text" class="form-control" id="classId" name="classId">-->
+            <select class="custom-select" id="category" name="category">
+                <option selected>Choose...</option>
+
+            </select>
         </div>
         <div class="input-group">
             <label for="price">price</label>
@@ -103,7 +115,8 @@
         </div>
         <div class="input-group">
             <label for="publishTime">publishTime</label>
-            <input type="text" class="form-control" id="publishTime" name="publishTime" th:value="${book.getPublishTime()}">
+            <input type="text" class="form-control" id="publishTime" name="publishTime"
+                   th:value="${book.getPublishTime()}">
         </div>
         <div class="input-group" hidden>
             <label for="picture">picture</label>
@@ -116,9 +129,7 @@
                     <!--                    <input type="text" class="form-control" id="classId" name="classId">-->
                     <select class="custom-select" id="face" name="face">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -129,9 +140,7 @@
                     <!--            <input type="text" class="form-control" id="pressmark" name="pressmark">-->
                     <select class="custom-select" id="column" name="column">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -142,9 +151,7 @@
                     <!--                    <input type="text" class="form-control" id="state" name="state">-->
                     <select class="custom-select" id="row" name="row">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -156,9 +163,7 @@
                     <!--                    <input type="text" class="form-control" id="state" name="state">-->
                     <select class="custom-select" id="floor" name="floor">
                         <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
                     </select>
                 </div>
             </div>
@@ -179,6 +184,42 @@
     </form>
 </div>
 
+
+<script th:inline="javascript">
+    function addOp(id, num) {
+        let obj = document.getElementById(id);
+        for (let i = 1; i <= num; i++) {
+            obj.options.add(new
+                Option('' + i, i)
+            )
+            ;
+        }
+    }
+
+    function addCa(num) {
+        let obj = document.getElementById("category");
+        for (let i = 0; i < num.length; i++) {
+            obj.options.add(new
+                Option('' + num[i], num[i])
+            )
+            ;
+        }
+    }
+
+    window.onload = function () {
+        let face = [[${face}]];
+        let column = [[${column}]];
+        let row = [[${row}]];
+        let floor = [[${floor}]];
+        let categories = [[${categories}]];
+
+        addOp("face", face);
+        addOp("column", column);
+        addOp("row", row);
+        addOp("floor", floor);
+        addCa(categories);
+    }
+</script>
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>

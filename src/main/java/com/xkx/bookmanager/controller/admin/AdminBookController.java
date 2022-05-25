@@ -3,6 +3,7 @@ package com.xkx.bookmanager.controller.admin;
 import com.alibaba.fastjson.JSONObject;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.xkx.bookmanager.mapper.BookMapper;
+import com.xkx.bookmanager.mapper.ParamMapper;
 import com.xkx.bookmanager.pojo.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ public class AdminBookController {
 
     @Autowired
     private BookMapper bookMapper;
+    @Autowired
+    private ParamMapper paramMapper;
 
     @RequestMapping("/getAll")
     public String getAll(Model model) {
@@ -76,12 +79,23 @@ public class AdminBookController {
     }
 
     @RequestMapping("/toAddPage")
-    public String toAddPage() {
+    public String toAddPage(Model model) {
+        List<String> categories = paramMapper.getAllCategories();
+
+        model.addAttribute("categories", categories);
+        for (String cate : categories) {
+            System.out.println(cate);
+        }
+        model.addAttribute("face", paramMapper.getFace());
+        model.addAttribute("column", paramMapper.getColumn());
+        model.addAttribute("floor", paramMapper.getFloor());
+        model.addAttribute("row", paramMapper.getRow());
         return "admin/book_add";
     }
 
     @RequestMapping("/toAddPageWithISBN")
-    public String toAddPageWithISBN() {
+    public String toAddPageWithISBN(Model model) {
+
         return "admin/book_getISBN";
     }
 
@@ -141,6 +155,17 @@ public class AdminBookController {
             book.setPrice(Price);
 
             model.addAttribute("book", book);
+            List<String> categories = paramMapper.getAllCategories();
+
+            model.addAttribute("categories", categories);
+            for (String cate : categories) {
+                System.out.println(cate);
+            }
+            model.addAttribute("face", paramMapper.getFace());
+            model.addAttribute("column", paramMapper.getColumn());
+            model.addAttribute("floor", paramMapper.getFloor());
+            model.addAttribute("row", paramMapper.getRow());
+
 
             return "admin/book_add_with_ISBN";
 
