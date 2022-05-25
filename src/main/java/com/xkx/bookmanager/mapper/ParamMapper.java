@@ -18,4 +18,6 @@ public interface ParamMapper {
     int getFace();
 
     int getFloor();
+
+    void addCategory(String category);
 }

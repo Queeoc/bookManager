@@ -175,6 +175,7 @@
                 <!--                    <input type="text" class="form-control" id="state" name="state">-->
                 <select class="form-select form-select-sm" id="row" name="row" aria-label=".form-select-sm example">
                     <option selected>Choose...</option>
+                    <option
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -210,7 +211,7 @@
             </div>
             <div class="modal-body">
                 <!--添加方式选择功能实现-->
-                <form th:action="@{/}" method="post">
+                <form th:action="@{/admin/category/add}" method="post">
 
                     <div class="form-group">
                         <label for="category" class="">category:</label>

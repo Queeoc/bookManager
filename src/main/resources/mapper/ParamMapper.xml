@@ -8,7 +8,7 @@
     </select>
 
     <select id="getFace" resultType="int">
-        select face from location_info;
+        select `face` from location_info;
     </select>
 
     <select id="getColumn" resultType="int">
@@ -22,4 +22,8 @@
     <select id="getRow" resultType="int">
         select `row` from location_info;
     </select>
+
+    <update id="addCategory" parameterType="String">
+        insert into category_info values (#{category})
+    </update>
 </mapper>

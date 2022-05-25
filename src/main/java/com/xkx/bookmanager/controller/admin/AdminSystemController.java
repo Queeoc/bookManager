@@ -22,6 +22,9 @@ public class AdminSystemController {
         List<String> categories = paramMapper.getAllCategories();
 
         model.addAttribute("categories",categories);
+        for(String cate : categories){
+            System.out.println(cate);
+        }
         model.addAttribute("face",paramMapper.getFace());
         model.addAttribute("column",paramMapper.getColumn());
         model.addAttribute("floor",paramMapper.getFloor());
