@@ -20,4 +20,12 @@ public interface ParamMapper {
     int getFloor();
 
     void addCategory(String category);
+
+    void addRow();
+
+    void addColumn();
+
+    void addFace();
+
+    void addFloor();
 }

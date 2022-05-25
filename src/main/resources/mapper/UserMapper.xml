@@ -22,4 +22,8 @@
     <select id="getTotalReaderCounts" resultType="int">
         select count(*) from user where role = 'user'
     </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from user where username = #{readerId}
+    </delete>
 </mapper>

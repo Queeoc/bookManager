@@ -28,4 +28,8 @@
         insert into reader_info values (#{barcode},#{readerId},#{address},#{gender},#{registerTime},#{name},#{phoneNumber})
     </insert>
 
+    <delete id="deleteById" parameterType="String">
+        delete from reader_info where readerId = #{readerId}
+    </delete>
+
 </mapper>

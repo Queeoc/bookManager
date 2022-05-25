@@ -15,4 +15,5 @@ public interface ReaderMapper {
     void updateInfo(Reader reader);
     void addReader(Reader reader);
     Reader getReaderInfoByReaderId(String readerId);
+    void deleteById(String readerId);
 }

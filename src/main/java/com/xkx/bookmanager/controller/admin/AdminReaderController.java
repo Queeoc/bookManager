@@ -37,6 +37,7 @@ public class AdminReaderController {
     public String getAll(Model model) {
         List<Reader> readers = readerMapper.getAllReader();
         model.addAttribute("readers", readers);
+
         return "admin/readers";
     }
 
@@ -78,9 +79,12 @@ public class AdminReaderController {
 
         if(recordMapper.isBorrowedBookById(readerId) != 0){
             model.addAttribute("failed",true);
+            List<Reader> readers = readerMapper.getAllReader();
+            model.addAttribute("readers", readers);
             return "admin/readers";
         }else{
-            recordMapper.deleteById(readerId);
+            userMapper.deleteById(readerId);
+            readerMapper.deleteById(readerId);
             return "redirect:/admin/reader/getAll";
         }
     }

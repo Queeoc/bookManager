@@ -22,4 +22,6 @@ public class AdminCategoryController {
 
         return "redirect:/admin/system/getAll";
     }
+
+
 }

@@ -153,7 +153,12 @@
     </table>
 </div>
 
-
+<script th:inline="javascript">
+    let isFailed = [[${failed}]];
+    if(isFailed == true){
+        alert("the reader has borrowed one or more books, delete failed!!");
+    }
+</script>
 
 
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>

@@ -16,4 +16,5 @@ public interface UserMapper {
     void insertUser(String username, String password,String role);
 
     int getTotalReaderCounts();
+    void deleteById(String readerId);
 }

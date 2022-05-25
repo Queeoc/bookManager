@@ -33,4 +33,28 @@ public class AdminSystemController {
 
         return "admin/system";
     }
+
+    @RequestMapping("/addFace")
+    public String addFace(){
+        paramMapper.addFace();
+        return "redirect:/admin/system/getAll";
+    }
+
+    @RequestMapping("/addColumn")
+    public String addColumn(){
+        paramMapper.addColumn();
+        return "redirect:/admin/system/getAll";
+    }
+
+    @RequestMapping("/addFloor")
+    public String addFloor(){
+        paramMapper.addFloor();
+        return "redirect:/admin/system/getAll";
+    }
+
+    @RequestMapping("/addRow")
+    public String addRow(){
+        paramMapper.addRow();
+        return "redirect:/admin/system/getAll";
+    }
 }

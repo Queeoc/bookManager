@@ -26,4 +26,17 @@
     <update id="addCategory" parameterType="String">
         insert into category_info values (#{category})
     </update>
+
+    <update id="addFace">
+        update location_info set `face` = face + 1
+    </update>
+    <update id="addRow">
+        update location_info set `row` = row + 1
+    </update>
+    <update id="addFloor">
+        update location_info set `floor` = floor + 1
+    </update>
+    <update id="addColumn">
+        update location_info set `column` = `column` + 1
+    </update>
 </mapper>
