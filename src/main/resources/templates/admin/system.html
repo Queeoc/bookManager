@@ -114,32 +114,31 @@
             <tbody>
             <tr>
                 <th scope="row">face</th>
-                <td>3</td>
+                <td th:text="${face}"></td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                    <a th:href="@{''}" class="btn btn-outline-success btn-sm">ADD</a></td>
                 </td>
             </tr>
 
             <tr>
                 <th scope="row">column</th>
-                <td>3</td>
+                <td th:text="${column}"></td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                    <a th:href="@{''}" class="btn btn-outline-success btn-sm">ADD</a></td>
 
                 </td>
             </tr>
             <tr>
                 <th scope="row">row</th>
-                <td>3</td>
+                <td th:text="${row}"></td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                    <a th:href="@{''}" class="btn btn-outline-success btn-sm">ADD</a></td>
                 </td>
-            </tr>
+            </tr>s
             <tr>
                 <th scope="row">floor</th>
-                <td>3</td>
-                <td>
-                    <button type="button" class="btn btn-outline-primary btn-sm">ADD</button>
+                <td th:text="${floor}"></td>
+                <td><a th:href="@{''}" class="btn btn-outline-success btn-sm">ADD</a></td>
                 </td>
             </tr>
             </tbody>
@@ -154,9 +153,6 @@
                 <!--                    <input type="text" class="form-control" id="state" name="state">-->
                 <select class="form-select form-select-sm" id="face" name="face" aria-label=".form-select-sm example">
                     <option selected>Choose...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
                 </select>
             </div>
             <div class="input-group">
@@ -165,9 +161,6 @@
                 <select class="form-select form-select-sm" id="column" name="column"
                         aria-label=".form-select-sm example">
                     <option selected>Choose...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
                 </select>
             </div>
             <div class="input-group">
@@ -175,9 +168,6 @@
                 <!--                    <input type="text" class="form-control" id="state" name="state">-->
                 <select class="form-select form-select-sm" id="row" name="row" aria-label=".form-select-sm example">
                     <option selected>Choose...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
                 </select>
             </div>
             <div class="input-group">
@@ -185,9 +175,6 @@
                 <!--                    <input type="text" class="form-control" id="state" name="state">-->
                 <select class="form-select form-select-sm" id="floor" name="floor" aria-label=".form-select-sm example">
                     <option selected>Choose...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
                 </select>
             </div>
             <input type="submit" value="Find" class="btn btn-outline-primary btn-sm" style="float: right">
@@ -231,9 +218,26 @@
 </div>
 
 <script th:inline="javascript">
+    function addOp(id, num) {
+        let obj = document.getElementById(id);
+        for (let i = 1; i <= num; i++) {
+            obj.options.add(new
+                Option('' + i, i)
+            )
+            ;
+        }
+    }
+
     window.onload = function () {
-        let cate = [[${categories}]];
-        console.log(cate);
+        let face = [[${face}]];
+        let column = [[${column}]];
+        let row = [[${row}]];
+        let floor = [[${floor}]];
+
+        addOp("face", face);
+        addOp("column", column);
+        addOp("row", row);
+        addOp("floor", floor);
     }
 </script>
 

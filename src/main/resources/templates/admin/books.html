@@ -96,7 +96,7 @@
             <td th:text="${book.getPublisher()}"></td>
             <td th:text="${book.getIsbn()}"></td>
             <td th:text="${book.getPrice()}"></td>
-            <td><a th:href="@{'/admin/book/info/' + ${book.getIsbn()}}" class="btn btn-outline-success">Details</a></td>
+            c
             <td><a th:href="@{'/admin/book/EditPage/' + ${book.getBookId()}}" class="btn btn-outline-info">Edit</a></td>
         </tr>
         </tbody>
