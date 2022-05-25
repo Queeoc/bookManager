@@ -92,4 +92,8 @@
         select count(*) from book_info where state = 3
     </select>
 
+    <select id="searchBookByLocation" resultType="Book" parameterType="String">
+        select * from book_info where `floor` = #{floor} and `face` = #{face} and `column` = #{column} and `row` = #{row}
+    </select>
+
 </mapper>

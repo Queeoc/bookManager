@@ -195,4 +195,12 @@ public class AdminBookController {
         bookMapper.updateBookBasic(book);
         return "redirect:/admin/book/getAll";
     }
+
+    @RequestMapping("/searchByLocation")
+    public String searchByLocation(Model model , String face , String column, String floor, String row){
+        List<Book> books = bookMapper.searchBookByLocation(floor,face,column,row);
+
+        model.addAttribute("books",books);
+        return "admin/book_search_result";
+    }
 }

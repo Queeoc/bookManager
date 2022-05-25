@@ -30,4 +30,6 @@ public interface BookMapper {
     int getTotalLostBooks();
 
     int getTotalDamagedBooks();
+
+    List<Book> searchBookByLocation(String floor, String face, String column, String row);
 }
