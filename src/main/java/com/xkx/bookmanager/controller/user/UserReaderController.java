@@ -46,7 +46,7 @@ public class UserReaderController {
         int paidFine=0;
         int reserveSuccess = 0;
         int reserveFail = 0;
-        List<Book> rec = new ArrayList<>();
+        List<Book> rec = new ArrayList<Book>();
 
         Date date = new Date();
         long date1 = date.getTime();
@@ -55,7 +55,8 @@ public class UserReaderController {
         Iterator<Record> it1 = records.iterator();
         while(it1.hasNext()){
             Record r1 = it1.next();
-            rec.add(bookMapper.getBookById(r1.getBookId()));
+            System.out.println(r1.getBookId() + "************");
+            rec.add(new Book(bookMapper.getBookById(r1.getBookId()).getBookId(),bookMapper.getBookById(r1.getBookId()).getBookName()));
         }
 
         List<Fine>fine = fineMapper.getFineById(username);
@@ -103,6 +104,11 @@ public class UserReaderController {
         model.addAttribute("reserveFail",reserveFail);
         model.addAttribute("records",rec);
         model.addAttribute("reserveTotal",reserveTotal);
+
+        for (Book book : rec) {
+            System.out.println(book.getBookId());
+            System.out.println(book.getBookName());
+        }
 
 
 //        System.out.println(borrowedBooks);

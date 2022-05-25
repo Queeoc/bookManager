@@ -30,6 +30,8 @@ public class Book {
     private String bookBarcode;
     private String picture;
 
-
-
+    public Book(String bookId, String bookName) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+    }
 }
