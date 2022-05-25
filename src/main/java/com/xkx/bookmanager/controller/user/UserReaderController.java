@@ -83,6 +83,7 @@ public class UserReaderController {
             try {
                 long date3 = simpleDateFormat.parse(next.getReserveTime()).getTime();
                 if(date1 - date3 > (1000 * 3600 * 4)){
+                    reserveMapper.deleteReservation(next.getBookId());
                     reserveFail++;
                 }else{
                     reserveSuccess++;
@@ -105,10 +106,6 @@ public class UserReaderController {
         model.addAttribute("records",rec);
         model.addAttribute("reserveTotal",reserveTotal);
 
-        for (Book book : rec) {
-            System.out.println(book.getBookId());
-            System.out.println(book.getBookName());
-        }
 
 
 //        System.out.println(borrowedBooks);

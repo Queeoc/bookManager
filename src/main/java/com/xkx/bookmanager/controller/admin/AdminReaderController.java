@@ -77,7 +77,7 @@ public class AdminReaderController {
     public String deleteById(Model model, String readerId){
 
         if(recordMapper.isBorrowedBookById(readerId) != 0){
-            model.addAttribute("failed",false);
+            model.addAttribute("failed",true);
             return "admin/readers";
         }else{
             recordMapper.deleteById(readerId);
