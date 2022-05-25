@@ -201,12 +201,13 @@
         <div class="dashBoard">
             <div class="person">
                 <h1 style="font-size: 1.5rem">Dear</h1>
-                <h1 th:text="${session.username}" style="font-size: 1.5rem"></h1>
+                <h1 th:text="${session.name}" style="font-size: 1.5rem"></h1>
             </div>
             <div>
                 <p class="notification" th:text="'You have '+ ${borrowedBooks} + ' books to return'"></p>
                 <p class="notification" th:text="'You have reserved ' +${reserveTotal} +' books, and '+ ${reserveFail} +' are expired' "></p>
                 <p class="notification" th:text="'You have paid ' + ${paidFine} +' yuan because of delay penalty'"> </p>
+                <p class="notification" th:text="'you have '+ ${sumFine} + ' yuan to pay because of delay panelty'"></p>
 
             </div>
             <div id="timeBox"><h1 style="text-align: center; font-size: 2rem">Current Time</h1>
