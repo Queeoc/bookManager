@@ -118,13 +118,15 @@
             </td>
             <div th:switch="${book.getState()}">
                 <td th:case="1">available</td>
-                <td th:case="0">unavailable</td>
+                <td th:case="0">unavailable(borrowed)</td>
+                <td th:case="2">unavailable(losted)</td>
+                <td th:case="3">unavailable(damaged)</td>
             </div>
-            <td><a th:if="${book.getState()}" th:href="@{'/user/book/reserve/' + ${book.getBookId()}}"
+            <td><a th:if="${book.getState() eq 1}" th:href="@{'/user/book/reserve/' + ${book.getBookId()}}"
                    class="btn btn-outline-info">Reserve</a>
             </td>
             <td>
-                <a th:if="${book.getState()}" th:href="@{'/user/book/borrowOne/' + ${book.getBookId()}}"
+                <a th:if="${book.getState() eq 1}" th:href="@{'/user/book/borrowOne/' + ${book.getBookId()}}"
                    class="btn btn-outline-info">Borrow</a>
             </td>
         </tr>
